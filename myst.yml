@@ -37,6 +37,7 @@ project:
     - file: intro.md
     - title: Lessons
       children:
+        - file: content/00-introduction.md
         - file: content/01-qubits.md
     - title: Reference
       children:

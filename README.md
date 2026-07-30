@@ -10,18 +10,6 @@ Once deployed, the site lives at:
 **https://dzovan137.github.io/NeoplantaQUANTA/**
 
 
-## Project layout
-
-```
-myst.yml                    # site + project configuration (title, TOC, math macros)
-intro.md                    # landing page
-content/01-qubits.md        # Lesson 1 — image, LaTeX, and copy-paste Python
-content/02-feature-gallery.md  # reference page showing every MyST feature used here
-images/                     # figures
-references.bib              # bibliography
-.github/workflows/deploy.yml   # auto-deploy to GitHub Pages on push to main
-```
-
 ## How the course is published
 
 Pushing to `main` triggers the GitHub Action in `.github/workflows/deploy.yml`,

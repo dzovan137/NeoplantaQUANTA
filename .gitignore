@@ -1,0 +1,8 @@
+# MyST / Jupyter Book build artifacts
+_build/
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+*.log
+.ipynb_checkpoints/

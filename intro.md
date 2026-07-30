@@ -1,6 +1,19 @@
 ---
 title: Introduction to Quantum Information
 description: Welcome and overview of the course.
+exports:
+  - format: pdf
+    template: lapreprint-typst
+    output: exports/intro.pdf
+    id: pdf-intro
+    abstract: "Welcome and overview of the Introduction to Quantum Information course."
+downloads:
+  - id: pdf-intro
+    title: Download this page (PDF)
+  - id: pdf-book
+    title: Download full course (PDF)
+  - file: intro.md
+    title: Page source (Markdown)
 ---
 
 # Welcome 👋

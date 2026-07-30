@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 *.log
 .ipynb_checkpoints/
+
+# Generated PDF exports
+exports/

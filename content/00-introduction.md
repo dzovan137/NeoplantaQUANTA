@@ -9,7 +9,7 @@ Primer problema: Ukoliko recimo simulacije novih jedinjenja i hemijskih procesa 
 
 :::{figure} ../images/MatTroyer.png
 :alt: Matthias Troyer
-:width: 260px
+:width: 450px
 :align: center
 
 Matthias Troyer — image from [ETH Zürich](https://www.youtube.com/live/5uDPnvgElY8?si=MIjdGMEkVzj-8zQO).

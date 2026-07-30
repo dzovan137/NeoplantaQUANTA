@@ -22,13 +22,6 @@ project:
   bibliography:
     - references.bib
 
-  # Full-course PDF (all pages combined) — offered as a download on every page.
-  exports:
-    - format: pdf
-      template: https://github.com/myst-templates/plain_typst_book
-      output: exports/neoplanta-quanta.pdf
-      id: pdf-book
-
   # Reusable LaTeX macros — available in every page.
   # These make Dirac notation painless: write \ket{0}, \bra{\psi}, \braket{\phi}{\psi}.
   math:

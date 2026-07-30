@@ -2,19 +2,6 @@
 title: "MyST Feature Gallery"
 short_title: Feature Gallery
 description: A reference page demonstrating every authoring feature used in this course.
-exports:
-  - format: pdf
-    template: lapreprint-typst
-    output: exports/gallery.pdf
-    id: pdf-gallery
-    abstract: "A reference page demonstrating the MyST authoring features used in this course."
-downloads:
-  - id: pdf-gallery
-    title: Download this page (PDF)
-  - id: pdf-book
-    title: Download full course (PDF)
-  - file: 02-feature-gallery.md
-    title: Page source (Markdown)
 ---
 
 # MyST Feature Gallery

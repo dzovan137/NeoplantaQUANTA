@@ -2,19 +2,6 @@
 title: "Lesson 1 — The Qubit"
 short_title: The Qubit
 description: The state of a single qubit, the Bloch sphere, and first steps in Python.
-exports:
-  - format: pdf
-    template: lapreprint-typst
-    output: exports/qubits.pdf
-    id: pdf-qubits
-    abstract: "Lesson 1: the qubit, the Bloch sphere, and first steps in Python."
-downloads:
-  - id: pdf-qubits
-    title: Download this page (PDF)
-  - id: pdf-book
-    title: Download full course (PDF)
-  - file: 01-qubits.md
-    title: Page source (Markdown)
 ---
 
 # The Qubit

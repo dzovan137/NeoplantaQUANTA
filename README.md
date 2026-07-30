@@ -9,15 +9,6 @@ Prose, LaTeX, figures, and Python snippets that students copy into their own not
 Once deployed, the site lives at:
 **https://dzovan137.github.io/NeoplantaQUANTA/**
 
-## Build it locally
-
-You need [Node.js](https://nodejs.org) (v18+). Then:
-
-```bash
-npm install -g mystmd     # install the MyST CLI (once)
-myst start                # live preview at http://localhost:3000
-myst build --html         # build the static site into _build/html
-```
 
 ## Project layout
 

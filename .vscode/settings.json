@@ -1,0 +1,14 @@
+{
+  // Treat all .md files in this workspace as MyST Markdown.
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": false
+    }
+  },
+  "files.associations": {
+    "*.md": "myst-markdown"
+  }
+}

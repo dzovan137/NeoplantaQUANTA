@@ -1,0 +1,4 @@
+/* Hide the frontmatter action row (licenses, GitHub, edit link, downloads). */
+.myst-fm-block-header {
+  display: none !important;
+}

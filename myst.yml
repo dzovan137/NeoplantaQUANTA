@@ -11,7 +11,7 @@ project:
     - quantum computing
     - lecture notes
   authors:
-    - name: Jovan Odavić
+    - name: NeoplantaQUANTA
       # email: you@example.com
       # affiliations:
       #   - Your University
@@ -38,7 +38,8 @@ project:
     - title: Lessons
       children:
         - file: content/00-introduction.md
-        - file: content/01-qubits.md
+        - file: content/01-who.md
+        - file: content/02-qubits.md
     - title: Reference
       children:
         - file: content/02-feature-gallery.md
@@ -48,6 +49,7 @@ site:
   title: Introduction to Quantum Information
   options:
     logo_text: Intro to QI
+    style: styles/site.css
     # A few book-theme niceties:
     hide_outline: false
     hide_toc: false

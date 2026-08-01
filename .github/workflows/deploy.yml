@@ -34,6 +34,17 @@ jobs:
         run: npm install -g mystmd
       - name: Build HTML Assets
         run: myst build --html
+      - name: Keep the site out of search engines (noindex)
+        run: |
+          # Inject a noindex directive into the <head> of every generated page so
+          # Google/Bing crawl the page, see the tag, and drop it from search results.
+          find _build/html -name '*.html' -print0 \
+            | xargs -0 sed -i 's#</head>#<meta name="robots" content="noindex, nofollow"></head>#'
+          # Stop advertising pages to crawlers: remove the auto-generated sitemap.
+          rm -f _build/html/sitemap.xml _build/html/sitemap_style.xsl
+          # robots.txt must still ALLOW crawling — otherwise bots never fetch the
+          # page and never see the noindex tag above. No sitemap reference.
+          printf 'User-agent: *\nAllow: /\n' > _build/html/robots.txt
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

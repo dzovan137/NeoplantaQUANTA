@@ -1,53 +1,87 @@
 ---
-title: Introduction to Quantum Information
-description: Welcome and overview of the course.
+title: Uvod u kvantnu informatiku. 
+description: Dobrodošli!
 ---
 
-# Welcome 👋
+# Dobrodošli!  👋
 
-Welcome to **Introduction to Quantum Information**. In these notes we give a brief and
-efficient exposition of the ideas at the heart of quantum information: qubits,
-superposition, measurement, and entanglement. The emphasis is on *practical* examples
-you can reproduce yourself in Python.
+```{figure} images/dva.jpg
+:alt: Uvodna slika za kurs kvantne informatike
+:width: 88%
+:align: center
 
-:::{note} How to use these notes
+Izvor slike: [QTLab — ICSC QC1 Quantum Computing Center](https://www.qtlab.unina.it/labs/icsc-qc1-quantum-computing-ccenter/)
+Na slici: Carlo Cosenza, Univerzitet u Napulju Federico II.
+```
+
+Dobrodošli na interaktivni kurs **Kvantne informatike**. Kurs je osmišljen da približi osnovne ideje savremenog polja
+kvantne informatike. Uvešćemo ključne pojmove kao što su: kjubit, superpozicija, merenje i spletenost. Poseban naglasak
+stavljamo na praktične vežbe u programskom okruženju Python, kroz Jupyter notebook, koji zahvaljujući svojoj fleksibilnosti
+ima veoma važnu ulogu u savremenoj fizici i informatici.
+
+
+:::{note} Kako koristiti ovu stranicu? <span style="font-size: 1.45em;">📘💻</span>
 :class: simple
-Every code snippet is meant to be **copied into your own Jupyter notebook** and run there.
-The code on these pages is shown for reading — it is deliberately **not executed in the
-browser**, so you build understanding by typing and running it yourself.
+Ova stranica je zamišljena kao vodič za učenje <span style="font-size: 1.35em;">📘</span>, dok se kod izvršava u vašem **Jupyter notebook-u** <span style="font-size: 1.35em;">💻</span>.  
+
+Kako da radite:
+- kopirajte svaki primer koda sa stranice u svoj notebook,
+- pokrenite kod i proverite rezultat,
+- dodajte sopstvene beleške i male izmene kako biste bolje razumeli šta se dešava.
+
+Kodovi se ne izvršavaju direktno na ovoj stranici, jer je cilj da ih prolazite korak po korak,
+razumete svaku liniju i usput usvajate osnove programiranja u Python-u.  
 :::
 
-## What you will learn
+:::{note} Google Colab  
+:class: simple
 
-:::{important} Learning outcomes
-By the end of this short course you will be able to:
-- describe the state of a single qubit and visualise it on the Bloch sphere,
-- use Dirac (bra–ket) notation fluently,
-- compute measurement probabilities for simple states,
-- and reproduce every result with a few lines of NumPy.
+```{image} images/google-colab.png
+:alt: Google Colab ikonica
+:width: 56px
+```
+
+Ako želite da radite u Jupyter okruženju bez lokalne instalacije i dodatnog podešavanja, preporuka je da koristite **Google Colab**.  
+Otvorite platformu ovde: [Google Colab](https://colab.research.google.com), napravite novi notebook i direktno pokrenite kodove iz lekcija.
+
+Prednosti korišćenja Google Colab-a:
+- nije potrebna instalacija Python-a i dodatnih paketa na vašem računaru,
+- notebook možete otvoriti sa bilo kog uređaja koji ima internet,
+- jednostavno deljenje rada sa kolegama i nastavnicima putem linka,
+
 :::
 
-## Prerequisites
+## Šta ćeš naučiti? 
 
-A little linear algebra (vectors, matrices, inner products) and basic Python. That's it.
-
-## Course contents
+:::{admonition} Tvoj put kroz kurs
+:class: tip outcomes-hero
+Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i rad na pravom kvantnom uređaju.
+:::
 
 ::::{grid} 1 1 2 2
 
-:::{card} 🧭 Lesson 1 — The Qubit
-:link: content/01-qubits.md
-The state of a single qubit, the Bloch sphere, and your first lines of quantum code.
+:::{card} 🔹 Osnove stanja kjubita
+- matematički zapišeš i protumačiš stanje jednog kjubita,
+- vizuelizuješ stanje kjubita na Blohovoj sferi.
 :::
 
-:::{card} 📚 MyST Feature Gallery
-:link: content/02-feature-gallery.md
-A reference page showing every authoring feature used to build this course.
+:::{card} 🔹 Kvantna notacija i merenje
+- koristiš Dirakovu bra-ket notaciju u osnovnim primerima,
+- izračunaš verovatnoće merenja primenom Bornovog pravila.
+:::
+
+:::{card} 🔹 Python i Qiskit praksa
+- pratiš svaki korak računa kroz Python kod i proveriš rezultat,
+- koristiš Qiskit za kreiranje i pokretanje jednostavnih kvantnih kola.
+:::
+
+:::{card} 🔹 Rad na stvarnom hardveru
+- pokreneš osnovne primere na stvarnom kvantnom računaru na daljinu.
 :::
 
 ::::
 
-:::{seealso}
-This course is built with [Jupyter Book 2](https://next.jupyterbook.org) and the
-[MyST](https://mystmd.org) document engine.
-:::
+## Potrebno predznanje
+
+Linear algebra i osnove programskog jezika Python. 
+

@@ -2,3 +2,12 @@
 .myst-fm-block-header {
   display: none !important;
 }
+
+/* Learning outcomes section visual upgrade. */
+.outcomes-hero {
+  border: 0 !important;
+  border-left: 6px solid #0ea5a4 !important;
+  background: linear-gradient(120deg, #e6fffa 0%, #f0f9ff 100%) !important;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}

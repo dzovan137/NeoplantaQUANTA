@@ -3,8 +3,8 @@
 version: 1
 project:
   id: intro-quantum-information
-  title: Introduction to Quantum Information
-  description: A short, interactive introduction to the basics of quantum information.
+  title: Uvod u kvantnu informatiku
+  description: Kratak i interaktivni kurs. 
   keywords:
     - quantum information
     - qubits
@@ -35,20 +35,26 @@ project:
   # Table of contents (order of pages in the left sidebar).
   toc:
     - file: intro.md
-    - title: Lessons
+    - title: Dan 1 
       children:
         - file: content/00-introduction.md
         - file: content/01-who.md
         - file: content/02-qubits.md
+    - title: Dan 2 
+      children:
+        - file: dan2/00-introduction.md
+        - file: dan2/01-who.md
+        - file: dan2/02-qubits.md
+      
     - title: Reference
       children:
         - file: content/02-feature-gallery.md
 
 site:
   template: book-theme
-  title: Introduction to Quantum Information
+  title: Uvod 
   options:
-    logo_text: Intro to QI
+    logo_text: Uvod u kvantnu informatiku
     style: styles/site.css
     # A few book-theme niceties:
     hide_outline: false

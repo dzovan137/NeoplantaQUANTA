@@ -15,7 +15,7 @@ analogon klasičnim bit-ovima. Klasični bitovi mogu da imaju vrednosti $0$ i $1
 ```{figure} ../images/DifferentMathObjects.png
 :label: fig:DifferentMathObjects
 :alt: The Bloch sphere with the state psi drawn as a unit vector.
-:width: 620px
+:width: 420px
 :align: center
 
 Različiti tipovi matematičkih funkcija i njihova dijagramatička representacija. 
@@ -28,54 +28,30 @@ Dok prve tre konstrukcije će biti korišćene. Kvantna mehaniku nazivaju i matr
 
 
 (sec:state)=
-## Kvantno stanje kjubita
+## Kvantno stanje - qubit
 
-Kjubit predstavlja vektor u dvodimenzionalnom kompleksnom Hilbertovom prostoru $\Hilb = \CC^2$.
-Ovaj Hilbertov prostor je razapet **ortonormiranom računskom bazom** $\ket{0}$ i $\ket{1}$. Ove vektore zapisujemo kao
-```{math}
-:label: eq:basis-vectors
-\ket{0} = \begin{pmatrix}1\\0\end{pmatrix},
-\qquad
-\ket{1} = \begin{pmatrix}0\\1\end{pmatrix}.
-```
-
-Generalno, stanje kjubita (ket vektor) možemo zapisati kao
+A qubit lives in a two-dimensional complex Hilbert space $\Hilb = \CC^2$, spanned by the
+**computational basis** states $\ket{0}$ and $\ket{1}$. A general pure state is
 
 ```{math}
 :label: eq:qubit
 \ket{\psi} = \alpha \ket{0} + \beta \ket{1},
 \qquad \alpha, \beta \in \CC,
 ```
-gde kompleksne amplitude zadovoljavaju uslov **normalizacije**
+
+where the amplitudes obey the **normalisation condition**
+
 ```{math}
 :label: eq:norm
 \braket{\psi}{\psi} = |\alpha|^2 + |\beta|^2 = 1 .
 ```
-Gde smo već koristili i uveli Dirakovu bra-ket notaciju. 
-
-Sledeće pokušajmo sada da izvedemo jednačinu [](#eq:norm) direktno. 
-
-:::{note} Prikaži računicu (klik)
-:class: dropdown
-Dobijanje jednačine [](#eq:norm) koristeći Dirakov zapis i osnovne definicije. 
-
-```{figure} ../images/normalizacija.png
-:label: fig:state-derivation-placeholder
-:alt: Privremena slika ručne računice za stanje kjubita.
-:width: 520px
-:align: center
-
-```
-:::
-
-
-## The Bloch sphere
-
 
 Inline notation works too: the overlap of two states is written $\braket{\phi}{\psi}$, and
 a projector onto $\ket{0}$ is the outer product $\dyad{0}{0}$. These come from the
 `\ket`, `\bra`, `\braket`, and `\dyad` macros defined once in `myst.yml` — see
 [](#eq:qubit) and [](#eq:norm) for the numbered equations.
+
+## The Bloch sphere
 
 Up to a global phase, any single-qubit pure state can be written with two real angles
 $\theta \in [0,\pi]$ and $\varphi \in [0,2\pi)$,

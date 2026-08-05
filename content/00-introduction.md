@@ -38,8 +38,16 @@ Matthias Troyer [Simons Institute for the Theory of Computing - Berkeley 24.07.2
 :align: center
 
 Olivia Lanes [Quantum computing in practice - IBM](https://quantum.cloud.ibm.com/learning/en/courses/quantum-computing-in-practice/applications-of-qc).
+
+Example of a problem that fall into the BQP class: https://www.pnas.org/doi/full/10.1073/pnas.2006103117
+and https://arxiv.org/pdf/2603.15608
 ```
 ::::
+
+HERE WE NEED TO PUT THE RELEVANT REFERENCES:
+- SCOTT AARONSON LECTURE NOTES
+- Nielsen and Chuang
+
 
 Ovaj kurs neće ulaziti u kategorizaciju problem i teorijske aspekte nego pokušati približiti celo polje putem praktičnih vežbi i rada. 
 Videćemo konkretno trenutak u kome kvantni računari zapravo trebali bi da budu od pomoći u simulacijama kvantih sistema i probblem (a ne Shor/ov algoritam ili Grover). 
@@ -61,7 +69,7 @@ Mislim da bi mogli da radimo Bell ineqality konkretno da bi onda posle toga napr
 
 Verovatno bi mogli da se bavimo kvantnom teleportacijom, derivacija i da napravimo circuit koji ce to da raunije. 
 
-
+https://spectrum.ieee.org/ibm-verifiable-quantum-advantage
 
 Quantum information theory builds on Shannon's foundations [@shannon1948], with the
 modern reference being Nielsen & Chuang [@nielsen2010]. The no-cloning theorem is due to

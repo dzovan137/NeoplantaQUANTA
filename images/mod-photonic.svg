@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 190" role="img" aria-label="Schema fotonskog Mach-Zehnder kola">
+  <rect x="0" y="0" width="460" height="190" rx="10" fill="#F4F4F1" stroke="#D3D1C7" stroke-width="1"/>
+  <rect x="115" y="55" width="230" height="90" rx="7" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.3"/>
+  <g fill="none" stroke="#534AB7" stroke-width="2">
+    <path d="M95 100 H160"/>
+    <path d="M160 100 C185 100 185 78 210 78 H250 C275 78 275 100 300 100"/>
+    <path d="M160 100 C185 100 185 122 210 122 H250 C275 122 275 100 300 100"/>
+    <path d="M300 100 H365"/>
+  </g>
+  <rect x="155" y="92" width="10" height="16" rx="2" fill="#D85A30"/>
+  <rect x="295" y="92" width="10" height="16" rx="2" fill="#D85A30"/>
+  <circle cx="90" cy="100" r="6" fill="#BA7517"/>
+  <text x="86" y="86" font-family="sans-serif" font-size="10" fill="#854F0B">foton</text>
+  <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="12.5" fill="#2C2C2A">fotonsko kolo (Mach–Zehnder)</text>
+  <text x="230" y="162" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#3C3489">talasovodi · delitelji snopa</text>
+</svg>

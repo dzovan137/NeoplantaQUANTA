@@ -4,14 +4,31 @@ short_title: The Qubit
 description: The state of a single qubit, the Bloch sphere, and first steps in Python.
 ---
 
-# The Qubit
+# Qubit (Kjubit)
 
-The **qubit** is the basic unit of quantum information — the quantum analogue of the
-classical bit. Where a bit is either $0$ or $1$, a qubit can be in a *superposition* of
-the two.
+**Qubit** is osnovna jedinica građe i funkcije kvatne informatike, i i predstavlja
+analogon klasičnim bit-ovima. Klasični bitovi mogu da imaju vrednosti $0$ i $1$, qubit može biti u linearnoj superpoziciji ova dva stanja!
+
+Šta mislim pod linearnim? U najjednostavnijem smislu ukoliko imamo funkciju $f(a \vec{x} + b \vec{y}) = a f(\vec{x}) + b f(\vec{y})$ gde x i y mogu biti bilo koji od sledećih matematičkih objekata
+
+
+```{figure} ../images/DifferentMathObjects.png
+:label: fig:DifferentMathObjects
+:alt: The Bloch sphere with the state psi drawn as a unit vector.
+:width: 420px
+:align: center
+
+Različiti tipovi matematičkih funkcija i njihova dijagramatička representacija. 
+```
+
+Tenzori igraju veoma važnu ulogu u kvantnoj informatici ali i u ostalim poljima fizike, ali u ovom kursu nećemo ulaziti u detalje ove reprezentacije i zašto je bitna. 
+Dok prve tre konstrukcije će biti korišćene. Kvantna mehaniku nazivaju i matrično mehanikom koju je Heisenberg prvi formulisao [citat iz Panticeve knjige]
+
+
+
 
 (sec:state)=
-## The state of a qubit
+## Kvantno stanje - qubit
 
 A qubit lives in a two-dimensional complex Hilbert space $\Hilb = \CC^2$, spanned by the
 **computational basis** states $\ket{0}$ and $\ket{1}$. A general pure state is

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 190" role="img" aria-label="Schema niza neutralnih atoma u optickim pincetama">
+  <rect x="0" y="0" width="460" height="190" rx="10" fill="#F4F4F1" stroke="#D3D1C7" stroke-width="1"/>
+  <g fill="#B5D4F4" opacity="0.7">
+    <path d="M182 40 l-10 40 h20 z"/><path d="M232 40 l-10 40 h20 z"/><path d="M282 40 l-10 40 h20 z"/>
+  </g>
+  <g fill="#9FE1CB" stroke="#1D9E75" stroke-width="1.3">
+    <circle cx="182" cy="88" r="7"/><circle cx="232" cy="88" r="7"/><circle cx="282" cy="88" r="7"/>
+    <circle cx="182" cy="116" r="7"/><circle cx="232" cy="116" r="7"/><circle cx="282" cy="116" r="7"/>
+    <circle cx="182" cy="144" r="7"/><circle cx="232" cy="144" r="7"/><circle cx="282" cy="144" r="7"/>
+  </g>
+  <text x="232" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#185FA5">optičke pincete</text>
+  <text x="232" y="176" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#0F6E56">niz neutralnih atoma (kubiti)</text>
+</svg>

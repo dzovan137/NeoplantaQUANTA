@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 190" role="img" aria-label="Schema energetskog pejzaza kvantnog anilera">
+  <rect x="0" y="0" width="460" height="190" rx="10" fill="#F4F4F1" stroke="#D3D1C7" stroke-width="1"/>
+  <path d="M70 60 C120 60 120 120 165 120 C205 120 205 78 245 78 C300 78 300 150 360 150" fill="none" stroke="#888780" stroke-width="2"/>
+  <line x1="70" y1="150" x2="390" y2="150" stroke="#D3D1C7" stroke-width="1"/>
+  <circle cx="165" cy="112" r="9" fill="#EF9F27" stroke="#854F0B" stroke-width="1.2"/>
+  <path d="M300 150 q10 -14 20 0" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+  <circle cx="310" cy="150" r="4" fill="#1D9E75"/>
+  <text x="165" y="96" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#854F0B">lokalni</text>
+  <text x="310" y="172" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0F6E56">globalni minimum</text>
+  <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="12.5" fill="#2C2C2A">energetski pejzaž (žarenje)</text>
+</svg>

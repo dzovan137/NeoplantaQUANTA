@@ -1,3 +1,10 @@
+/* ==========================================================================
+   NeoplantaQUANTA — site styles
+   Code blocks are rendered by MyST using highlight.js (class `hljs`), NOT
+   Pygments. Syntax colors below therefore target `.hljs-*` token classes.
+   Theme: authentic GitHub Light (github.com "primer" palette).
+   ========================================================================== */
+
 /* Hide the frontmatter action row (licenses, GitHub, edit link, downloads). */
 .myst-fm-block-header {
   display: none !important;
@@ -12,28 +19,169 @@
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-/* Improve contrast for code blocks and inline code across MyST pages. */
-pre,
+/* --------------------------------------------------------------------------
+   1. The code card — one clean GitHub-style box (no nested double border).
+   The scroll container `.myst-code-body.hljs` becomes the card; the inner
+   <pre>/<code> are made transparent so only one border/background shows.
+   Forced in both light and dark site modes so code always reads as GitHub Light.
+   -------------------------------------------------------------------------- */
+.myst-code {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.myst-code-body.hljs,
+.dark .myst-code-body.hljs {
+  background: #f6f8fa !important;
+  color: #24292f !important;
+  border: 1px solid #d0d7de !important;
+  border-radius: 10px !important;
+}
+
+.myst-code-body pre,
+.myst-code-body pre code,
+.dark .myst-code-body pre,
+.dark .myst-code-body pre code {
+  background: transparent !important;
+  color: #24292f !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Fallback for any code block not wrapped by myst-code-body. */
 pre code {
-  background: #fff8e6 !important;
-  color: #1f2937 !important;
-  border: 1px solid #f59e0b !important;
-  border-radius: 10px;
+  color: #24292f !important;
 }
 
-pre {
-  padding: 0.95rem 1rem;
-  box-shadow: 0 8px 20px rgba(146, 64, 14, 0.12);
+/* --------------------------------------------------------------------------
+   2. Remove the per-line "highlight box".
+   MyST draws a full-width blue bar behind emphasized lines via a pseudo
+   element; kill it, and neutralize any per-line background/border/gutter tint.
+   -------------------------------------------------------------------------- */
+pre > code > span[data-highlight="true"]::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
 }
 
-/* Keep inline code distinct but less visually heavy than fenced blocks. */
+pre > code > span[data-highlight="true"] {
+  background: transparent !important;
+}
+
+pre > code > span,
+pre code span {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+/* Keep the line-number gutter (if shown) neutral, no highlight recolor. */
+pre > code > span > .linenumber,
+pre > code > span[data-highlight="true"] > .linenumber {
+  color: #8c959f !important;
+  background: transparent !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. GitHub Light syntax colors (highlight.js token classes).
+   Overrides the theme's bundled Xcode (light) and VS-Code (dark) palettes.
+   -------------------------------------------------------------------------- */
+
+/* Keywords: import, from, as, def, return, class, for, in, ... (red) */
+.hljs-keyword,
+.hljs-doctag,
+.hljs-type,
+.hljs-name,
+.hljs-strong,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-variable.language_,
+.hljs-meta .hljs-keyword,
+.dark .hljs-keyword,
+.dark .hljs-type {
+  color: #cf222e !important;
+}
+
+/* Function / class names & sections (purple) */
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_,
+.hljs-built_in,
+.hljs-symbol,
+.hljs-section,
+.dark .hljs-title,
+.dark .hljs-built_in {
+  color: #8250df !important;
+}
+
+/* Numbers, constants, literals, attributes, operators (blue) */
+.hljs-number,
+.hljs-literal,
+.hljs-attr,
+.hljs-attribute,
+.hljs-operator,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.dark .hljs-number,
+.dark .hljs-literal {
+  color: #0550ae !important;
+}
+
+/* Strings & regex (dark navy) */
+.hljs-string,
+.hljs-regexp,
+.hljs-meta .hljs-string,
+.dark .hljs-string {
+  color: #0a3069 !important;
+}
+
+/* Comments (gray) */
+.hljs-comment,
+.hljs-code,
+.hljs-formula,
+.dark .hljs-comment {
+  color: #6e7781 !important;
+  font-style: normal !important;
+}
+
+/* Tags / quotes / decorators & magics (green) */
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo,
+.hljs-meta,
+.hljs-bullet {
+  color: #116329 !important;
+}
+
+/* Function parameters & substitutions default to plain text color */
+.hljs-params,
+.hljs-subst,
+.hljs-variable,
+.dark .hljs-params {
+  color: #24292f !important;
+}
+
+.hljs-emphasis { font-style: italic !important; }
+
+/* Diff blocks, GitHub style */
+.hljs-addition { color: #116329 !important; background-color: #dafbe1 !important; }
+.hljs-deletion { color: #82071e !important; background-color: #ffebe9 !important; }
+
+/* --------------------------------------------------------------------------
+   4. Inline code (keep it light, GitHub-like, less heavy than fenced blocks).
+   -------------------------------------------------------------------------- */
 p code,
 li code,
 td code,
 figcaption code {
-  background: #fff1cc !important;
-  color: #7c2d12 !important;
-  border: 1px solid #fdba74 !important;
-  border-radius: 4px;
-  padding: 0.1rem 0.35rem;
+  background: #eff1f3 !important;
+  color: #24292f !important;
+  border: 0 !important;
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
 }

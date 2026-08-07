@@ -108,13 +108,39 @@ Svaki blok i linija koda sadrže objašnjene o funkciji i ulozi koju igraju u ko
 :::
 
 ```python
-import numpy as np
+# za numeričku manipulaciju nizova, vektori, matrice, tenzori
+import numpy as np             
 
-# The computational basis states |0> and |1> as column vectors.
+# Računska baza |0> and |1> kao ket vektori (vektori kolone)
 ket0 = np.array([[1], [0]], dtype=complex)
 ket1 = np.array([[0], [1]], dtype=complex)
 
-# A superposition: the |+> state = (|0> + |1>)/sqrt(2)
+# prikaži definicije stanja 
+print("Stanje nula: ", ket0)
+print("Stanje jedan: ", ket1)
+```
+
+Kada definišeš vektor pomoću `np.array`, parametar `dtype` određuje tip elemenata u nizu. Najčešće mogućnosti su:
+
+- dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int</span> za cele brojeve
+- dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">float</span> za realne brojeve
+- dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">complex</span> za kompleksne brojeve, što je ovde najkorisnije
+- dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">bool</span> za logičke vrednosti, Tačno/Netačno (True/False) 
+
+
+Kod dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int</span>, NumPy obično bira celobrojni tip koji odgovara platformi: na 64-bit sistemima to je najčešće <span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int64</span>, a na 32-bit sistemima <span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int32</span>. Ako želiš potpuno fiksnu širinu, koristi dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">np.int32</span> ili dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">np.int64</span>.
+
+
+U ovom primeru koristimo dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int</span> zato što amplituda kvantnog stanja može da bude kompleksna!
+
+Hajde sad da definišemo stanje plus $\ket{+}$ kao: $\theta = \frac{\pi}{2}$ i $\varphi = 0$ i to
+```{math}
+:label: eq:plus
+\ket{+} = \dfrac{1}{\sqrt{2}} ( \ket{0} + \ket{1} ), 
+```
+
+```python
+# Linearna superpozicija stanja: |+> state = (|0> + |1>)/sqrt(2)
 alpha = 1/np.sqrt(2)
 beta  = 1/np.sqrt(2)
 psi = alpha * ket0 + beta * ket1
@@ -122,6 +148,7 @@ psi = alpha * ket0 + beta * ket1
 print("|psi> =")
 print(psi)
 ```
+
 
 We can check normalisation from {eq}`eq:norm` by computing $\braket{\psi}{\psi}$, which is
 `psi.conj().T @ psi`:
@@ -180,7 +207,7 @@ print("p(0) =", round(p0, 3))
 
 
 ```python
-import numpy as np                          # za numeričku manipulaciju nizova, vektori, matrice, tenzori
+import numpy as np                          
 import matplotlib.pyplot as plt             # vizuelizacija
 from mpl_toolkits.mplot3d import Axes3D     # vizuelizacija za 3D 
 

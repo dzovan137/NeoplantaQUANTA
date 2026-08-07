@@ -11,3 +11,29 @@
   border-radius: 14px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
+
+/* Improve contrast for code blocks and inline code across MyST pages. */
+pre,
+pre code {
+  background: #fff8e6 !important;
+  color: #1f2937 !important;
+  border: 1px solid #f59e0b !important;
+  border-radius: 10px;
+}
+
+pre {
+  padding: 0.95rem 1rem;
+  box-shadow: 0 8px 20px rgba(146, 64, 14, 0.12);
+}
+
+/* Keep inline code distinct but less visually heavy than fenced blocks. */
+p code,
+li code,
+td code,
+figcaption code {
+  background: #fff1cc !important;
+  color: #7c2d12 !important;
+  border: 1px solid #fdba74 !important;
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}

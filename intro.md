@@ -83,5 +83,24 @@ Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i 
 
 ## Potrebno predznanje
 
-Linear algebra i osnove programskog jezika Python. 
+- Lineara algebra, 
+- LaTeX,
+- osnove programskog jezika Python. 
 
+
+
+
+Šta mislim pod linearnim? U najjednostavnijem smislu ukoliko imamo funkciju $f(a \vec{x} + b \vec{y}) = a f(\vec{x}) + b f(\vec{y})$ gde x i y mogu biti bilo koji od sledećih matematičkih objekata
+
+
+```{figure} /images/DifferentMathObjects.png
+:label: fig:DifferentMathObjects
+:alt: razlici matematicki objekti
+:width: 620px
+:align: center
+
+Različiti tipovi matematičkih funkcija i njihova dijagramatička reprezentacija. 
+```
+
+Tenzori igraju veoma važnu ulogu u kvantnoj informatici ali i u ostalim poljima fizike, ali u ovom kursu nećemo ulaziti u detalje ove reprezentacije i zašto je bitna. 
+Dok će prve tri konstrukcije biti korišćene. Kvantnu mehaniku nazivaju i matričnom mehanikom koju je Heisenberg prvi formulisao [citat iz Panticeve knjige]

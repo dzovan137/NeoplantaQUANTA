@@ -37,18 +37,17 @@ project:
     - file: intro.md
     - title: Dan 1 
       children:
-        - file: content/00-introduction.md
-        - file: content/01-who.md
-        - file: content/02-qubits.md
+        - file: dan1/00-introduction.md
+        - file: dan1/01-who.md
+        - file: dan1/02-qubits.md
     - title: Dan 2 
       children:
-        - file: dan2/00-introduction.md
-        - file: dan2/01-who.md
-        - file: dan2/02-qubits.md
+        - file: dan2/03-one-qubit-gates.md
+        - file: dan2/04-measurement.md
       
     - title: Reference
       children:
-        - file: content/02-feature-gallery.md
+        - file: mogucnosti/feature-gallery.md
 
 site:
   template: book-theme

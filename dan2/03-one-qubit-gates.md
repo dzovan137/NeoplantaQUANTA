@@ -1,7 +1,7 @@
 ---
-title: "Kjubit"
-short_title: Kjubit
-description: The state of a single qubit, the Bloch sphere, and first steps in Python.
+title: "Kvantno merenje"
+short_title: Kvantno merenje
+description: Šta je to merenje kvantnog stanja?
 ---
 
 # Qubit (Kjubit)
@@ -81,7 +81,7 @@ Gde jednokjubitno stanje poprima oblik
 
 ```{math}
 :label: eq:bloch
-\ket{\psi} = \cos\tfrac{\theta}{2}\,\ket{0} + e^{i\varphi}\sin\tfrac{\theta}{2}\,\ket{1},
+\ket{\psi} = \cos{\left( \tfrac{\theta}{2} \right)} \,\ket{0} + e^{i\varphi}\sin{ \left( \tfrac{\theta}{2} \right)}\,\ket{1},
 ```
 gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1. Kao što je prikazano na slici [](#fig:bloch). 
 
@@ -93,14 +93,15 @@ gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1.
 :align: center
 
 **Blohova sfera** sa severnim i južnim polom $\ket{0}$ i $\ket{1}$, pritom gde je jednokjubitno stanje $\ket{\psi}$ iz jednačine {eq}`eq:bloch` prikazano sa ljubičastom bojom sa primerom dva ugla $(\theta, \varphi)$. 
+Ostale relevant tačke na sferi poput $\ket{\pm}$ i $\ket{\pm i}$ su takođe date. Za ukazane vrednosti uglova potrebno je konvertovati vrednosti uglova koristeći $\frac{\pi}{180}$, i to za dati primer $\cos{(\frac{45^{\circ}}{2})} = \cos{(\frac{45 \frac{\pi}{180}}{2})} = 0.92388$, $\varphi = 45^{\circ} = 45 \frac{180}{\pi} = 0.785398$, i $\sin{(\frac{45^{\circ}}{2})} = 0.382683$.
 ```
 
-## Vaš prvi kod u Python-u! 
+## Vaš prvi 'kvantni' kod u Python-u! 
 
 Hajde da generišemo jednokjubitna stanja, kao i napravimo vizuelizaciju Blohove sfere. 
 
 
-:::{tip} Kopiraj me u svoj Jupiter Notebook! 
+:::{tip} Kopiraj u svoj Jupiter Notebook! 
 :class: simple
 Kopiraj svaku liniju koda iz obeleženog kodnog bloka u svoj Jupiter Notebook na [Google Colab](https://colab.research.google.com) i pokreni koristeći **Shift+Enter**!
 Svaki blok i linija koda sadrže objašnjene o funkciji i ulozi koju igraju u kodu.
@@ -116,9 +117,15 @@ ket0 = np.array([[1], [0]], dtype=complex)
 ket1 = np.array([[0], [1]], dtype=complex)
 
 # prikaži definicije stanja 
-print("Stanje nula: ", ket0)
-print("Stanje jedan: ", ket1)
+print("Stanje nula: ")
+print(ket0)
+print("Stanje jedan: ")
+print(ket1)
 ```
+
+:::{note} Različite opcije pri definisanju
+
+
 
 Kada definišeš vektor pomoću `np.array`, parametar `dtype` određuje tip elemenata u nizu. Najčešće mogućnosti su:
 
@@ -133,31 +140,191 @@ Kod dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular
 
 U ovom primeru koristimo dtype=<span style="color: #8250df; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;">int</span> zato što amplituda kvantnog stanja može da bude kompleksna!
 
-Hajde sad da definišemo stanje plus $\ket{+}$ kao: $\theta = \frac{\pi}{2}$ i $\varphi = 0$ i to
+:::
+
+Hajde sad da definišemo stanje plus $\ket{+}$ kao: $\theta = \frac{\pi}{2}$ i $\varphi = 0$ (vidi [](#fig:bloch)) i to
 ```{math}
 :label: eq:plus
 \ket{+} = \dfrac{1}{\sqrt{2}} ( \ket{0} + \ket{1} ), 
 ```
-
+stanje koje možemo da definišemo u Python-u kao
 ```python
-# Linearna superpozicija stanja: |+> state = (|0> + |1>)/sqrt(2)
+# Definisanje linearna superpozicija stanja: |+> = (|0> + |1>)/sqrt(2)
 alpha = 1/np.sqrt(2)
 beta  = 1/np.sqrt(2)
 psi = alpha * ket0 + beta * ket1
 
+# prikaži definiciju stanja
 print("|psi> =")
 print(psi)
 ```
 
-
-We can check normalisation from {eq}`eq:norm` by computing $\braket{\psi}{\psi}$, which is
+Sada možemo da proverimo normalizaciju vektora {eq}`eq:norm` za ovaj primer direktno 
+izračunajući $\braket{\psi}{\psi}$ što je u kodu:
 `psi.conj().T @ psi`:
 
 ```python
-# <psi|psi> should equal 1
+# <psi|psi> što bi trebalo da nam da 1
 norm = (psi.conj().T @ psi).item().real
 print("norm =", round(norm, 6))
 ```
+
+## Kod za vizuelizaciju Blohove sfere
+Sada ćemo predstaviti kod koji vizualizuje različite vektore na Blohovoj sferi i generiše samu [](#fig:bloch).
+Kod se sastoji od više elemenata i sledećih:
+
+
+
+```python
+import numpy as np                          
+import matplotlib.pyplot as plt             # vizuelizacija
+from mpl_toolkits.mplot3d import Axes3D     # vizuelizacija za 3D 
+
+%matplotlib inline                          # pomoćna funckija za vizuelizaciju unutar Jupiter notebook okruženja
+
+```
+
+
+Moguće je automatski uraditi konverziju uglova iz stepeni u radijane i to:
+
+```python
+# Biranje parametara ugla: po promeni potrebno je promeni i ponovi egzekuciju ovog ali sledećih blokova 
+THETA = np.radians(45)   # polarni ugao:   0 -> |0>,  180 deg -> |1>
+PHI   = np.radians(45)   # azimutalni ugao oko z ose
+
+# --- Uglovi -> Blohov vektor  r = (sin th cos ph, sin th sin ph, cos th) -
+x = np.sin(THETA) * np.cos(PHI)
+y = np.sin(THETA) * np.sin(PHI)
+z = np.cos(THETA)
+r = np.array([x, y, z])
+
+# prikaži vrednosti
+print("Blohov Vektor r =", np.round(r, 3))
+print("Dužina |r|      =", round(float(np.linalg.norm(r)), 3), " (= 1 za čist stanja)")
+
+
+```
+
+Grafičke konverzije u cilju iscrtavanja:
+
+```python
+# Grafično generisanje sferične mreže 
+u = np.linspace(0, 2*np.pi, 60)     # azimutalna mreža
+v = np.linspace(0, np.pi,   60)     # polarna mreža
+
+xs = np.outer(np.cos(u), np.sin(v))
+ys = np.outer(np.sin(u), np.sin(v))
+zs = np.outer(np.ones_like(u), np.cos(v))
+
+# Kružnica za Ekvator i dva meridijana
+circ = np.linspace(0, 2*np.pi, 200)
+```
+
+Poslednji blok koji generiše sliku:
+
+
+```python
+# krajnje generisanje grafika (celokupan kod je dosta tehnički i nije bitan za kurs za razumeti u detalje)
+
+fig = plt.figure(figsize=(7.5, 7.5))
+ax = fig.add_subplot(111, projection="3d")
+
+ax.plot_surface(xs, ys, zs, color="black", alpha=0.08,
+                linewidth=0, rstride=2, cstride=2, antialiased=True, shade=False)
+
+
+ax.plot(np.cos(circ), np.sin(circ), 0, color="#555555", lw=0.8, alpha=0.6)   # equator
+ax.plot(np.cos(circ), 0*circ, np.sin(circ), color="#bbbbbb", lw=0.6)         # xz meridian
+ax.plot(0*circ, np.cos(circ), np.sin(circ), color="#bbbbbb", lw=0.6)         # yz meridian
+
+
+L = 1.3
+axis_kw = dict(lw=1.3, arrow_length_ratio=0.05)
+for d, col in [((1,0,0), "#c0392b"), ((0,1,0), "#27ae60"), ((0,0,1), "#34495e")]:
+    dx, dy, dz = d
+    ax.quiver(0,0,0,  L*dx,  L*dy,  L*dz, color=col, **axis_kw)   # positive
+    ax.quiver(0,0,0, -L*dx, -L*dy, -L*dz, color=col, **axis_kw)   # negative
+# small axis letters at the positive tips
+ax.text(1.45, 0, 0, r"$x$", color="#c0392b", fontsize=11, alpha=0.7)
+ax.text(0, 1.42, 0, r"$y$", color="#27ae60", fontsize=11, alpha=0.7)
+ax.text(0, 0, 1.45, r"$z$", color="#34495e", fontsize=11, alpha=0.7)
+
+
+poles = [
+    (( 0, 0, 1), r"$|0\rangle$",    "#34495e", ( 0.1, -0.1,  0.10)),
+    (( 0, 0,-1), r"$|1\rangle$",    "#34495e", ( 0.1, -0.1, -0.12)),
+    (( 1, 0, 0), r"$|{+}\rangle$",  "#c0392b", (0.14,-0.02,  0.10)),
+    ((-1, 0, 0), r"$|{-}\rangle$",  "#c0392b", (-0.30,0.00,  0.10)),
+    (( 0, 1, 0), r"$|{+}i\rangle$", "#27ae60", (0.02, 0.14,  0.10)),
+    (( 0,-1, 0), r"$|{-}i\rangle$", "#27ae60", (0.02,-0.28,  0.10)),
+]
+for (px,py,pz), lab, col, (ox,oy,oz) in poles:
+    ax.scatter(px, py, pz, color=col, s=55, edgecolors="white", linewidths=0.8, zorder=5)
+    ax.text(px+ox, py+oy, pz+oz, lab, color=col, fontsize=13, ha="center")
+
+
+ax.quiver(0,0,0, r[0], r[1], r[2], color="#8e44ad", lw=3.0, arrow_length_ratio=0.12, zorder=6)
+ax.scatter(*r, color="#8e44ad", s=45, zorder=6)
+ax.text(r[0]*1.12, r[1]*1.12, r[2]*1.12+0.06, r"$|\psi\rangle$", color="#8e44ad", fontsize=14)
+
+
+ax.plot([r[0], r[0]], [r[1], r[1]], [0, r[2]], color="#8e44ad", ls=":", lw=1)
+ax.plot([0, r[0]], [0, r[1]], [0, 0], color="#8e44ad", ls=":", lw=1.2)
+
+
+ARC = "#e67e22"
+nx, ny = np.cos(PHI), np.sin(PHI)            # xy-plane direction of the projection
+
+
+tp = np.linspace(0, PHI, 40)
+ax.plot(0.32*np.cos(tp), 0.32*np.sin(tp), 0, color=ARC, lw=1.8)
+ax.text(0.46*np.cos(PHI/2), 0.46*np.sin(PHI/2), 0.0, r"$\varphi$",
+        color=ARC, fontsize=14, ha="center")
+
+
+tt = np.linspace(0, THETA, 40)
+ax.plot(0.40*np.sin(tt)*nx, 0.40*np.sin(tt)*ny, 0.40*np.cos(tt), color=ARC, lw=1.8)
+tm = THETA/2
+ax.text(0.52*np.sin(tm)*nx, 0.52*np.sin(tm)*ny, 0.52*np.cos(tm), r"$\theta$",
+        color=ARC, fontsize=14, ha="center")
+
+
+a, b = np.cos(THETA/2), np.sin(THETA/2)
+ax.set_title(rf"$|\psi\rangle = {a:.2f}\,|0\rangle + e^{{i\,{PHI:.2f}}}\,{b:.2f}\,|1\rangle$"
+             + f"\n$\\theta={np.degrees(THETA):.0f}^\\circ,\\ \\varphi={np.degrees(PHI):.0f}^\\circ$",
+             fontsize=13, pad=8)
+
+
+ax.set_box_aspect([1, 1, 1])
+ax.set_xlim(-1.1, 1.1); ax.set_ylim(-1.1, 1.1); ax.set_zlim(-1.1, 1.1)
+ax.set_axis_off()
+ax.view_init(elev=18, azim=35)
+
+plt.tight_layout()
+plt.savefig("blohova_sfera.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+Izlaz ova 4 bloka koda je zapravo [](#fig:bloch). 
+
+
+## Specijalna stanja na Blohovoj sferi
+
+Najčešće izdvajamo šest posebnih čistih stanja koja leže na koordinatnim osama Blohove sfere:
+
+| Stanje | Definicija | $\theta$ | $\varphi$ |
+|---|---|---:|---:|
+| $\ket{0}$ | severni pol | $0$ | bilo koje |
+| $\ket{1}$ | južni pol | $\pi$ | bilo koje |
+| $\ket{+}$ | $\dfrac{1}{\sqrt 2}(\ket{0}+\ket{1})$ | $\dfrac{\pi}{2}$ | $0$ |
+| $\ket{-}$ | $\dfrac{1}{\sqrt 2}(\ket{0}-\ket{1})$ | $\dfrac{\pi}{2}$ | $\pi$ |
+| $\ket{+i}$ | $\dfrac{1}{\sqrt 2}(\ket{0}+i\ket{1})$ | $\dfrac{\pi}{2}$ | $\dfrac{\pi}{2}$ |
+| $\ket{-i}$ | $\dfrac{1}{\sqrt 2}(\ket{0}-i\ket{1})$ | $\dfrac{\pi}{2}$ | $\dfrac{3\pi}{2}$ |
+| $\ket{T}$ | $\dfrac{1}{\sqrt{2}}(\ket{0}+e^{i\pi/4}\ket{1})$ | $\dfrac{\pi}{2}$ | $\dfrac{\pi}{4}$ |
+
+Za polarne tačke $\ket{0}$ i $\ket{1}$ izbor za $\varphi$ je proizvoljan, jer svi azimutalni uglovi opisuju isti pol.
+
+
+
 
 Finally, the **Born rule** says the probability of measuring outcome $k$ is
 $p(k) = |\braket{k}{\psi}|^2$:

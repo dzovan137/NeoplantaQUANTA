@@ -113,8 +113,15 @@ gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1.
 :align: center
 
 **Blohova sfera** sa severnim i južnim polom $\ket{0}$ i $\ket{1}$, pritom gde je jednokjubitno stanje $\ket{\psi}$ iz jednačine {eq}`eq:bloch` prikazano sa ljubičastom bojom sa primerom dva ugla $(\theta, \varphi)$. 
-Ostale relevantne tačke na sferi poput $\ket{\pm}$ i $\ket{\pm i}$ su takođe date. Za ukazane vrednosti uglova potrebno je konvertovati vrednosti uglova koristeći $\frac{\pi}{180}$, i to za dati primer $\cos{(\frac{45^{\circ}}{2})} = \cos{(\frac{45 \frac{\pi}{180}}{2})} = 0.92388$, $\varphi = 45^{\circ} = 45 \frac{pi}{180} = 0.785398$, i $\sin{(\frac{45^{\circ}}{2})} = 0.382683$.
+Ostale relevantne tačke na sferi poput $\ket{\pm}$ i $\ket{\pm i}$ su takođe date. Za ukazane vrednosti uglova potrebno je konvertovati vrednosti uglova koristeći $\frac{\pi}{180}$, i to za dati primer $\cos{(\frac{45^{\circ}}{2})} = \cos{(\frac{45 \frac{\pi}{180}}{2})} = 0.92388$, $\varphi = 45^{\circ} = 45 \frac{\pi}{180} = 0.785398$, i $\sin{(\frac{45^{\circ}}{2})} = 0.382683$.
 ```
+
+:::{danger}
+Treba napomenuti da ukoliko se sistem sastoji od više kjubita, reprezentacija pomoću Blohove sfera nije moguća. 
+U narednim predavanjima bavićemo se višekjubitnim sistemima. 
+:::
+
+
 
 ## Vaš prvi 'kvantni' kod u Python-u! 
 
@@ -342,6 +349,125 @@ Najčešće izdvajamo šest posebnih čistih stanja koja leže na koordinatnim o
 | $\ket{T}$ | $\approx 0.888\,\ket{0} + e^{i\pi/4}\,0.460\,\ket{1}$ | $\arccos\tfrac{1}{\sqrt3}\approx 54.7^\circ$ | $\dfrac{\pi}{4}$ |
 
 Za polarne tačke $\ket{0}$ i $\ket{1}$ izbor za $\varphi$ je proizvoljan, jer svi azimutalni uglovi opisuju isti pol.
+
+
+
+```{figure} ../images/oktaedar.png
+:label: fig:oktaedar
+:alt: Bloh
+:width: 420px
+:align: center
+
+Vizuelizacija stanja i oktaedar koji formiraju. 
+```
+
+
+:::{note} Prikaži kod za generisanje [](#fig:oktaedar) (klik)
+:class: dropdown
+
+```python 
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D                    # 3D projekcija
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection    # trougaone strane oktaedra
+
+%matplotlib inline
+
+# --- mreža sfere i pomoćna kružnica -----------------------------------
+u = np.linspace(0, 2*np.pi, 60)     # azimutalna mreža
+v = np.linspace(0, np.pi,   60)     # polarna mreža
+xs = np.outer(np.cos(u), np.sin(v))
+ys = np.outer(np.sin(u), np.sin(v))
+zs = np.outer(np.ones_like(u), np.cos(v))
+circ = np.linspace(0, 2*np.pi, 200)
+
+fig = plt.figure(figsize=(7.5, 7.5))
+ax = fig.add_subplot(111, projection="3d")
+
+# --- providna SIVA sfera ----------------------------------------------
+ax.plot_surface(xs, ys, zs, color="black", alpha=0.06,
+                linewidth=0, rstride=2, cstride=2, antialiased=True, shade=False)
+
+# --- blede vodeće kružnice --------------------------------------------
+ax.plot(np.cos(circ), np.sin(circ), 0, color="#555555", lw=0.8, alpha=0.5)   # ekvator
+ax.plot(np.cos(circ), 0*circ, np.sin(circ), color="#bbbbbb", lw=0.6)         # xz meridijan
+ax.plot(0*circ, np.cos(circ), np.sin(circ), color="#bbbbbb", lw=0.6)         # yz meridijan
+
+# --- tri ose, oba smera -----------------------------------------------
+L = 1.3
+axis_kw = dict(lw=1.3, arrow_length_ratio=0.05)
+for d, col in [((1,0,0), "#c0392b"), ((0,1,0), "#27ae60"), ((0,0,1), "#34495e")]:
+    dx, dy, dz = d
+    ax.quiver(0,0,0,  L*dx,  L*dy,  L*dz, color=col, **axis_kw)
+    ax.quiver(0,0,0, -L*dx, -L*dy, -L*dz, color=col, **axis_kw)
+ax.text(1.45, 0, 0, r"$x$", color="#c0392b", fontsize=11, alpha=0.7)
+ax.text(0, 1.42, 0, r"$y$", color="#27ae60", fontsize=11, alpha=0.7)
+ax.text(0, 0, 1.45, r"$z$", color="#34495e", fontsize=11, alpha=0.7)
+
+# --- OKTAEDAR: 8 trougaonih strana (po jedan pol sa svake ose) --------
+faces = [[(sx,0,0), (0,sy,0), (0,0,sz)]
+         for sx in (1,-1) for sy in (1,-1) for sz in (1,-1)]
+ax.add_collection3d(Poly3DCollection(faces, facecolor="#2980b9",
+                                     edgecolor="none", alpha=0.16))
+
+# --- ivice oktaedra = tri kvadrata u koordinatnim ravnima -------------
+for sq in [[(1,0,0), (0,1,0), (-1,0,0), (0,-1,0), (1,0,0)],   # xy kvadrat
+           [(1,0,0), (0,0,1), (-1,0,0), (0,0,-1), (1,0,0)],   # xz kvadrat
+           [(0,1,0), (0,0,1), (0,-1,0), (0,0,-1), (0,1,0)]]:  # yz kvadrat
+    a = np.array(sq)
+    ax.plot(a[:,0], a[:,1], a[:,2], color="#1f5f8b", lw=1.6)
+
+# --- šest temena + oznake sopstvenih stanja ---------------------------
+poles = [
+    (( 0, 0, 1), r"$|0\rangle$",    "#34495e", ( 0.16, -0.16,  0.10)),
+    (( 0, 0,-1), r"$|1\rangle$",    "#34495e", ( 0.16, -0.16, -0.12)),
+    (( 1, 0, 0), r"$|{+}\rangle$",  "#c0392b", ( 0.14, -0.02,  0.10)),
+    ((-1, 0, 0), r"$|{-}\rangle$",  "#c0392b", (-0.30,  0.00,  0.10)),
+    (( 0, 1, 0), r"$|{+}i\rangle$", "#27ae60", ( 0.02,  0.14,  0.10)),
+    (( 0,-1, 0), r"$|{-}i\rangle$", "#27ae60", ( 0.02, -0.28,  0.10)),
+]
+for (px,py,pz), lab, col, (ox,oy,oz) in poles:
+    ax.scatter(px, py, pz, color=col, s=55, edgecolors="white", linewidths=0.8, zorder=5)
+    ax.text(px+ox, py+oy, pz+oz, lab, color=col, fontsize=13, ha="center")
+
+# ================= MAGIČNO STANJE |T> =================================
+# |T> leži na dijagonali (1,1,1): tačka sfere najudaljenija od svih temena
+# oktaedra, probija sferu kroz centar +++ strane.
+T      = np.array([1, 1, 1]) / np.sqrt(3)   # na sferi
+face_c = np.array([1, 1, 1]) / 3            # težište +++ trougaone strane
+
+# istakni +++ stranu kroz koju |T> probija
+ax.add_collection3d(Poly3DCollection(
+    [[(1,0,0), (0,1,0), (0,0,1)]], facecolor="#d4a017",
+    edgecolor="#b8860b", lw=1.2, alpha=0.22))
+
+# tačkasta linija „probijanja": od strane oktaedra do sfere
+ax.plot([face_c[0], T[0]], [face_c[1], T[1]], [face_c[2], T[2]],
+        color="#b8860b", ls=":", lw=1.4, zorder=6)
+
+# strelica od koordinatnog početka do |T> + teme + oznaka
+ax.quiver(0, 0, 0, T[0], T[1], T[2], color="#d4a017", lw=2.6,
+          arrow_length_ratio=0.12, zorder=7)
+ax.scatter(*T, color="#d4a017", s=60, edgecolors="white", linewidths=0.8, zorder=8)
+ax.text(T[0]+0.10, T[1]+0.10, T[2]+0.14, r"$|T\rangle$",
+        color="#b8860b", fontsize=14, ha="center", zorder=8)
+# ======================================================================
+
+# --- kozmetika --------------------------------------------------------
+ax.set_title("Oktaedar šest stabilizatorskih stanja i magično stanje "
+             r"$|T\rangle$ upisan u Blohovu sferu", fontsize=12, pad=8)
+ax.set_box_aspect([1, 1, 1])
+ax.set_xlim(-1.1, 1.1); ax.set_ylim(-1.1, 1.1); ax.set_zlim(-1.1, 1.1)
+ax.set_axis_off()
+ax.view_init(elev=25, azim=35)
+
+plt.tight_layout()
+plt.savefig("oktaedar_T_stanje.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+:::
+
+
 
 ## Interpretacija stanja kao verovatnoća
 

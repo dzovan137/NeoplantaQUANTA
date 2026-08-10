@@ -41,15 +41,27 @@ razumete svaku liniju i usput usvajate osnove programiranja u Python-u.
 :width: 56px
 ```
 
-Ako želite da radite u Jupyter okruženju bez lokalne instalacije i dodatnog podešavanja, preporuka je da koristite **Google Colab**.  
-Otvorite platformu ovde: [Google Colab](https://colab.research.google.com), napravite novi notebook i direktno pokrenite kodove iz lekcija.
+Ako želite da radite u Jupyter okruženju bez lokalne instalacije i dodatnog podešavanja, preporuka je da koristite **Google Colab**. Otvorite platformu ovde: [Google Colab](https://colab.research.google.com), napravite novi notebook i direktno pokrenite kodove iz lekcija.
+
+
 
 Prednosti korišćenja Google Colab-a:
 - nije potrebna instalacija Python-a i dodatnih paketa na vašem računaru,
 - notebook možete otvoriti sa bilo kog uređaja koji ima internet,
 - jednostavno deljenje rada sa kolegama i nastavnicima putem linka,
 
+**Nužno je potrebno imati gmail email nalog!** 
+
 :::
+
+
+## Potrebno predznanje
+
+- Osnove linearne algebre, 
+- LaTeX ispisivanje formula (ukoliko želite da upotpunite Jupiter notebook beleške),
+- osnove programskog jezika Python. 
+
+
 
 ## Šta ćeš naučiti? 
 
@@ -67,7 +79,7 @@ Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i 
 
 :::{card} 🔹 Kvantna notacija i merenje
 - koristiš Dirakovu bra-ket notaciju u osnovnim primerima,
-- izračunaš verovatnoće merenja primenom Bornovog pravila.
+- izračunaš verovatnoće merenja
 :::
 
 :::{card} 🔹 Python i Qiskit praksa
@@ -81,13 +93,15 @@ Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i 
 
 ::::
 
-## Potrebno predznanje
-
-- Lineara algebra, 
-- LaTeX,
-- osnove programskog jezika Python. 
 
 
+## Praktični detalji
+- 3 x 45 min + 2 x 15 pauze
+- nije opšti kurs iz kvatne informatike, nego osnove koje se mogu nadograditi u budućnosti
+
+
+
+## Neke potrebne matematičke osnove
 
 
 Šta mislim pod linearnim? U najjednostavnijem smislu ukoliko imamo funkciju $f(a \vec{x} + b \vec{y}) = a f(\vec{x}) + b f(\vec{y})$ gde x i y mogu biti bilo koji od sledećih matematičkih objekata

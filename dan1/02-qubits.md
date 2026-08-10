@@ -54,6 +54,17 @@ Dobijanje jednačine [](#eq:norm) koristeći Dirakov zapis i osnovne definicije.
 :::
 
 
+
+:::{danger}
+Generalizacije poput kutrita koje recimo mogu da se zapisu kao u bazisu $\{ \ket{0}, \ket{1}, \ket{2}\}$ i tako dalje.
+Neke arhitekture kvantnih računara rade na generalizacijama koje koriste više od dva nivoa kao računskom bazom. 
+
+Postiji poduža lista hardverski realizacija, ali ovde bi smo izdvojili: 
+- Innsbruck group (https://arxiv.org/abs/2109.06903)
+- University of Waterloo (https://arxiv.org/abs/2507.15799v2)
+
+:::
+
 ## Blohova sfera
 
 

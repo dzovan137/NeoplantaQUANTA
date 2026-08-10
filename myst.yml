@@ -43,7 +43,8 @@ project:
     - title: Dan 2 
       children:
         - file: dan2/03-one-qubit-gates.md
-        - file: dan2/04-measurement.md
+        - file: dan2/04-circuits.md
+        - file: dan2/05-measurements.md
       
     - title: Reference
       children:

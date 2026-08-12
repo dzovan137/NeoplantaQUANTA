@@ -1,5 +1,5 @@
 ---
-title: Uvod u kvantnu informatiku. 
+title: O ovom kursu
 description: Dobrodošli!
 ---
 

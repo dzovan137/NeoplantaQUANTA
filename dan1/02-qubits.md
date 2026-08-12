@@ -1,6 +1,6 @@
 ---
-title: "Kjubit"
-short_title: Kjubit
+title: "Šta je to kubit"
+short_title: Šta je to kubit?
 description: Stanje jednog kubita. 
 ---
 
@@ -55,37 +55,49 @@ Dobijanje jednačine [](#eq:norm) koristeći Dirakov zapis i osnovne definicije.
 
 
 
-:::{danger}
-Generalizacije poput kutrita koje recimo mogu da se zapisu kao u bazisu $\{ \ket{0}, \ket{1}, \ket{2}\}$ i tako dalje.
-Neke arhitekture kvantnih računara rade na generalizacijama koje koriste više od dva nivoa kao računskom bazom. 
+:::{danger} Opasnost (klik)
+:class: dropdown
+Do sada smo posmatrali **dvodimenzioni** sistem — kjubit sa računskom bazom $\{\ket{0}, \ket{1}\}$. Ništa nas, međutim, ne sprečava da radimo sa sistemima koji imaju **više od dva nivoa**. Sistem sa tri nivoa zove se **kutrit** (qutrit), sa bazom $\{\ket{0}, \ket{1}, \ket{2}\}$, a uopšteno sistem sa $d$ nivoa zove se **kudit** (qudit) i živi u Hilbertovom prostoru $\Hilb = \CC^d$. Njegovo opšte stanje pišemo kao
 
-Postiji poduža lista hardverski realizacija, ali ovde bi smo izdvojili: 
-- Innsbruck group (https://arxiv.org/abs/2109.06903)
-- University of Waterloo (https://arxiv.org/abs/2507.15799v2)
+```{math}
+:label: eq:qudit
+\ket{\psi} = \sum_{k=0}^{d-1} c_k \ket{k}, \qquad \sum_{k=0}^{d-1} |c_k|^2 = 1,
+```
+gde su $c_k \in \CC$ kompleksne amplitude, a uslov normalizacije je direktna generalizacija jednačine [](#eq:norm).
 
+Isti sadržaj možemo da spakujemo u **manje fizičkih nosilaca**, što u nekim algoritmima smanjuje broj potrebnih kapija i međukjubitnih veza. Cena je teža kontrola: više nivoa znači i više kanala za greške i složenije kapije. 
+
+Postoji poduža lista hardverskih realizacija, a ovde izdvajamo dve reprezentativne:
+- Innsbruck grupa — kuditi na zarobljenim jonima ([arXiv:2109.06903](https://arxiv.org/abs/2109.06903))
+- University of Waterloo ([arXiv:2507.15799v2](https://arxiv.org/abs/2507.15799v2))
 :::
 
 ## Blohova sfera
 
+Koristeći sledeća dva ugla:
+- $\theta$: polarni ugao, $\theta \in [0,\pi]$,
+- $\varphi$: azimutalni ugao (relativna faza), $\varphi \in [0,2\pi)$,
 
-Prirodno pitanje je *odakle* dva realna ugla, kad opšte stanje [](#eq:qubit) ima dva
-**kompleksna** koeficijenta. Kratak odgovor je prebrojavanje parametara: dve kompleksne
-amplitude nose četiri realna broja (dva modula i dve faze); uslov normalizacije [](#eq:norm)
-oduzima jedan, a sloboda izbora **globalne faze** još jedan — ostaju tačno **dva** slobodna
-parametra. Njih biramo kao dva ugla:
-- $\theta$: polarni ugao, $\theta \in [0,\pi]$
-- $\varphi$: azimutalni ugao (relativna faza), $\varphi \in [0,2\pi)$
-
-Uz taj izbor, svako jednokjubitno stanje se **do na globalnu fazu** može zapisati u obliku
+svako jednokjubitno stanje se **do na globalnu fazu** može zapisati u obliku
 
 ```{math}
 :label: eq:bloch
 \ket{\psi} = \cos{\left( \tfrac{\theta}{2} \right)} \,\ket{0} + e^{i\varphi}\sin{ \left( \tfrac{\theta}{2} \right)}\,\ket{1},
 ```
 
+gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1. Kao što je prikazano na slici [](#fig:bloch). 
+
+
 :::{note} Prikaži izvođenje (klik)
 :class: dropdown
-Kako iz opšteg stanja [](#eq:qubit) dolazimo do oblika [](#eq:bloch).
+
+Prirodno pitanje je *odakle* dva realna ugla, kad opšte stanje [](#eq:qubit) ima dva
+**kompleksna** koeficijenta. Kratak odgovor je prebrojavanje parametara: dve kompleksne
+amplitude nose četiri realna broja (dva modula i dve faze); uslov normalizacije [](#eq:norm)
+oduzima jedan, a sloboda izbora **globalne faze** još jedan — ostaju tačno **dva** slobodna
+parametra.
+
+Kako iz opšteg stanja [](#eq:qubit) dolazimo do oblika [](#eq:bloch)?
 
 Napišimo amplitude u polarnom obliku, $\alpha = r_0\,e^{i\gamma_0}$ i $\beta = r_1\,e^{i\gamma_1}$,
 gde su $r_0, r_1 \ge 0$ moduli, a $\gamma_0, \gamma_1$ faze:
@@ -114,8 +126,6 @@ ceo opseg $[0,\pi]$ dok stanje putuje od severnog pola $\ket{0}$ ($\theta = 0$) 
 $\ket{1}$ ($\theta = \pi$).
 :::
 
-gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1. Kao što je prikazano na slici [](#fig:bloch). 
-
 
 ```{figure} ../images/BlohovaSfera.png
 :label: fig:bloch
@@ -127,9 +137,9 @@ gde svako moguće stanje i odabrani ugao pokazuje na površinu sfere radijusa 1.
 Ostale relevantne tačke na sferi poput $\ket{\pm}$ i $\ket{\pm i}$ su takođe date. Za ukazane vrednosti uglova potrebno je konvertovati vrednosti uglova koristeći $\frac{\pi}{180}$, i to za dati primer $\cos{(\frac{45^{\circ}}{2})} = \cos{(\frac{45 \frac{\pi}{180}}{2})} = 0.92388$, $\varphi = 45^{\circ} = 45 \frac{\pi}{180} = 0.785398$, i $\sin{(\frac{45^{\circ}}{2})} = 0.382683$.
 ```
 
-:::{danger}
-Treba napomenuti da ukoliko se sistem sastoji od više kjubita, reprezentacija pomoću Blohove sfera nije moguća. 
-U narednim predavanjima bavićemo se višekjubitnim sistemima. 
+:::{danger} Opasnost
+Treba napomenuti da ukoliko se sistem sastoji od više kjubita, reprezentacija pomoću Blohove sfere nije moguća.
+U narednim predavanjima bavićemo se višekjubitnim sistemima.
 :::
 
 

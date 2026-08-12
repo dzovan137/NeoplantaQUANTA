@@ -1,6 +1,6 @@
 ---
-title: "Lekcija 0 — Uvod u kvantno računarstvo"
-short_title: Uvod
+title: "Zašto kvantni računari?"
+short_title: Zašto kvanti računari?
 description: Motivacija i cilj. 
 ---
 

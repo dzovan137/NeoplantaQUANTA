@@ -3,7 +3,7 @@
 version: 1
 project:
   id: intro-quantum-information
-  title: Uvod u kvantnu informatiku
+  title: O ovom kursu
   description: Kratak i interaktivni kurs. 
   keywords:
     - quantum information
@@ -13,8 +13,8 @@ project:
   authors:
     - name: NeoplantaQUANTA
       # email: you@example.com
-      # affiliations:
-      #   - Your University
+      affiliations:
+        - Univerzitet u Novom Sadu, Prirodno-matematički fakultet, Departman za fiziku
   github: https://github.com/dzovan137/NeoplantaQUANTA
   license:
     content: CC-BY-4.0
@@ -35,17 +35,22 @@ project:
   # Table of contents (order of pages in the left sidebar).
   toc:
     - file: intro.md
-    - title: Dan 1 
+    - title: Poglavlje 1 
       children:
         - file: dan1/00-introduction.md
         - file: dan1/01-who.md
         - file: dan1/02-qubits.md
-    - title: Dan 2 
+    - title: Poglavlje 2
       children:
         - file: dan2/03-one-qubit-gates.md
         - file: dan2/04-circuits.md
         - file: dan2/05-measurements.md
-      
+    - title: Poglavlje 3
+      children:
+        - file: dan3/06-two-qubit-gates.md
+        - file: dan3/07-entanglement.md
+        - file: dan3/08-teleportation.md
+
     - title: Reference
       children:
         - file: mogucnosti/feature-gallery.md
@@ -54,6 +59,8 @@ site:
   template: book-theme
   title: Uvod 
   options:
+    logo: images/header-logo.png
+    logo_alt: Prirodno-matematički fakultet i Departman za fiziku
     logo_text: Uvod u kvantnu informatiku
     style: styles/site.css
     # A few book-theme niceties:

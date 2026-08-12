@@ -79,7 +79,19 @@ Svaka jednokjubitna kapija odgovara nekoj **rotaciji Blohove sfere**. Paulijeve 
 - $Y$ — rotacija za $180^\circ$ oko $y$-ose,
 - $Z$ — rotacija za $180^\circ$ oko $z$-ose.
 
-Na primer, $Z$ obrne stanje $\ket{+}$ (na pozitivnoj $x$-osi) u $\ket{-}$ (na negativnoj $x$-osi), jer rotacija za $\pi$ oko $z$-ose šalje $x \mapsto -x$.
+Na primer, $Z$ obrne stanje $\ket{+}$ (na pozitivnoj $x$-osi) u $\ket{-}$ (na negativnoj $x$-osi). 
+
+
+```{figure} ../images/BlohovaSfera.png
+:label: fig:blochagain
+:alt: Bloh
+:width: 420px
+:align: center
+
+Prethodna vizuelizacija ponovo iskrošćena. 
+
+```
+
 :::
 
 ## Hadamardova kapija
@@ -96,17 +108,8 @@ Njeno dejstvo na bazna stanja daje upravo stanja $\ket{+}$ i $\ket{-}$ sa Blohov
 H\ket{0} = \frac{1}{\sqrt{2}}\big(\ket{0} + \ket{1}\big) = \ket{+}, \qquad
 H\ket{1} = \frac{1}{\sqrt{2}}\big(\ket{0} - \ket{1}\big) = \ket{-}.
 ```
-Hadamardova kapija je i hermitska i unitarna, pa je sama sebi inverz, $H^2 = I$. Zgodno je zapisati je i kao normalizovani zbir dve Paulijeve matrice,
-```{math}
-:label: eq:hxz
-H = \frac{X + Z}{\sqrt{2}}.
-```
-Na Blohovoj sferi $H$ je rotacija za $\pi$ oko dijagonalne ose $(x+z)/\sqrt{2}$; njeno dejstvo **zamenjuje $x$- i $z$-osu**, što je razlog zašto pol $\ket{0}$ (na $z$-osi) prelazi u $\ket{+}$ (na $x$-osi).
+Hadamardova kapija je i hermitska i unitarna, pa je sama sebi inverz, $H^2 = I$.
 
-:::{tip} Zašto baš Hadamard?
-:class: simple
-Ako Hadamardovu kapiju primenimo na svaki kjubit registra pripremljenog u $\ket{00\ldots0}$, dobijamo **ravnomernu superpoziciju svih** $2^N$ **računskih stanja**. Ta „paralelnost" je polazna tačka gotovo svih poznatih kvantnih algoritama (Doč–Jozsa, Grover, Šor), pa ćemo se na nju vratiti u lekciji o [kvantnim kolima](04-circuits.md).
-:::
 
 ## Fazne kapije: $S$ i $T$
 
@@ -132,7 +135,7 @@ Za razliku od Paulijevih kapija i Hadamarda, kapije $S$ i $T$ **nisu** same sebi
 
 :::{warning} $T$ kapija i „magično" stanje
 :class: simple
-Primenom $T$ na $\ket{+}$ dobijamo tačno **magično stanje** $\ket{T} = T\ket{+}$ sa uglovima $\theta = \arccos\tfrac{1}{\sqrt3}$, $\varphi = \tfrac{\pi}{4}$, koje smo sreli u tabeli specijalnih stanja u [](../dan1/02-qubits.md). Upravo $T$ kapija „izbacuje" računanje iz skupa kapija koje klasičan računar može lako da simulira (Klifordova grupa), pa je ključna za kvantnu prednost.
+Primenom $T$ na $\ket{+}$ dobijamo tačno **magično stanje** $\ket{T} = T\ket{+}$ sa uglovima $\theta = \arccos\tfrac{1}{\sqrt3}$, $\varphi = \tfrac{\pi}{4}$, koje smo sreli u tabeli specijalnih stanja u [](../dan1/02-qubits.md). Upravo $T$ kapija „izbacuje" računanje iz skupa kapija koje klasičan računar može lako da simulira ([Klifordova grupa](https://en.wikipedia.org/wiki/Clifford_group)), pa je ključna za kvantnu prednost.
 :::
 
 ## Rotacione kapije
@@ -147,9 +150,36 @@ Pošto je $P^2 = I$ (iz [](#eq:involution)), razvoj eksponencijalne funkcije se 
 
 ```{math}
 :label: eq:euler-op
-e^{-i\frac{\theta}{2} P} = \cos\!\frac{\theta}{2}\, I - i\sin\!\frac{\theta}{2}\, P,
+e^{-i\frac{\theta}{2} P} = \cos{\left( \!\frac{\theta}{2}\right)} I - i\sin{\left( \!\frac{\theta}{2} \right)} P,
 ```
-što je operatorska verzija Ojlerove formule. Uvrštavanjem $P = X, Y, Z$ dobijamo tri standardne rotacione kapije
+što je operatorska verzija Ojlerove formule.
+
+:::{note} Prikaži izvođenje (klik)
+:class: dropdown
+Krenimo od definicije eksponencijalne funkcije operatora preko stepenog (Tejlorovog) reda:
+```{math}
+e^{-i\frac{\theta}{2} P} = \sum_{n=0}^{\infty} \frac{1}{n!}\left(-i\frac{\theta}{2}\,P\right)^{n} = \sum_{n=0}^{\infty} \frac{1}{n!}\left(-i\frac{\theta}{2}\right)^{n} P^{\,n}.
+```
+Ključno svojstvo je $P^2 = I$ (iz [](#eq:involution)): stepeni operatora $P$ smenjuju se u samo dve vrednosti,
+```{math}
+P^{0}=I,\quad P^{1}=P,\quad P^{2}=I,\quad P^{3}=P,\ \dots \qquad\Longrightarrow\qquad P^{2k}=I,\quad P^{2k+1}=P.
+```
+Zato red razdvajamo na **parne** ($n=2k$) i **neparne** ($n=2k+1$) članove — parni skupljaju $I$, a neparni $P$:
+```{math}
+e^{-i\frac{\theta}{2} P} = \underbrace{\left(\sum_{k=0}^{\infty} \frac{1}{(2k)!}\left(-i\frac{\theta}{2}\right)^{2k}\right)}_{\text{uz } I}\, I \;+\; \underbrace{\left(\sum_{k=0}^{\infty} \frac{1}{(2k+1)!}\left(-i\frac{\theta}{2}\right)^{2k+1}\right)}_{\text{uz } P}\, P.
+```
+Pošto je $(-i)^2=-1$, sledi $(-i)^{2k}=(-1)^k$ i $(-i)^{2k+1}=-i\,(-1)^k$, pa se dva koeficijenta svode na poznate Tejlorove redove kosinusa i sinusa (argumenta $\theta/2$):
+```{math}
+\sum_{k=0}^{\infty} \frac{(-1)^{k}}{(2k)!}\left(\frac{\theta}{2}\right)^{2k} = \cos{\left( \!\frac{\theta}{2}\right)}, \qquad -i\sum_{k=0}^{\infty} \frac{(-1)^{k}}{(2k+1)!}\left(\frac{\theta}{2}\right)^{2k+1} = -i\sin{\left( \!\frac{\theta}{2} \right)}.
+```
+Uvrštavanjem nazad dobijamo zatvorenu formu
+```{math}
+e^{-i\frac{\theta}{2} P} = \cos{\left( \!\frac{\theta}{2}\right)} I - i\sin{\left( \!\frac{\theta}{2} \right)} P,
+```
+što je upravo [](#eq:euler-op). Izvođenje počiva jedino na $P^2=I$, pa važi jednoobrazno za $P\in\{X,Y,Z\}$ i odmah daje matrice $R_x,R_y,R_z$ iz [](#eq:rotations).
+:::
+
+Uvrštavanjem $P = X, Y, Z$ dobijamo tri standardne rotacione kapije
 
 ```{math}
 :label: eq:rotations
@@ -162,7 +192,7 @@ R_z(\theta) &= e^{-i\frac{\theta}{2}Z}
 = \begin{pmatrix} e^{-i\theta/2} & 0 \\ 0 & e^{i\theta/2} \end{pmatrix}.
 \end{aligned}
 ```
-Geometrijski, $R_P(\theta)$ je rotacija Blohove sfere za ugao $\theta$ oko ose $P$. Uočimo **polovinu ugla** ($\theta/2$) u eksponentu: rotacija za pun krug $\theta = 2\pi$ ne vraća stanje u polazno, već mu dodaje globalnu fazu $-1$ ($R_P(2\pi) = -I$), što je karakteristika sistema sa spinom $1/2$.
+
 
 :::{note} Veza sa Paulijevim kapijama (klik)
 :class: dropdown
@@ -184,7 +214,7 @@ U(\theta, \phi, \lambda) = \begin{pmatrix}
 e^{i \phi} \sin{ (\theta/2)} & e^{i (\phi + \lambda)} \cos{ (\theta/2)}
 \end{pmatrix}.
 ```
-Broj parametara se lepo slaže sa geometrijom: matrica $U \in SU(2)$ ima tačno **tri** realna slobodna parametra, a $U(\theta,\phi,\lambda)$ zapravo nije ništa drugo do Ojlerova dekompozicija na tri rotacije, $U(\theta,\phi,\lambda) = R_z(\phi)\,R_y(\theta)\,R_z(\lambda)$ (do na globalnu fazu).
+Broj parametara se lepo slaže sa geometrijom: matrica $U \in SU(2)$ ([specijalna unitarna grupa](https://en.wikipedia.org/wiki/Special_unitary_group)) ima tačno **tri** realna slobodna parametra, a $U(\theta,\phi,\lambda)$ zapravo nije ništa drugo do Ojlerova dekompozicija na tri rotacije, $U(\theta,\phi,\lambda) = R_z(\phi)\,R_y(\theta)\,R_z(\lambda)$ (do na globalnu fazu).
 
 Sada je lako proveriti da su **sve** dosadašnje kapije samo posebni izbori uglova. Paulijeve matrice se dobijaju kao
 
@@ -225,10 +255,7 @@ Preostale kapije iz lekcije popunjavaju istu tabelu (fazna kapija $P(\lambda) = 
 
 Kao i u prošloj lekciji, sve možemo direktno da proverimo u nekoliko linija koda. Prvo definišemo Paulijeve matrice i osnovne kapije.
 
-:::{tip} Kopiraj u svoj Jupyter Notebook!
-:class: simple
-Kopiraj svaku liniju koda iz obeleženog kodnog bloka u svoj Jupyter Notebook na [Google Colab](https://colab.research.google.com) i pokreni koristeći **Shift+Enter**! Pretpostavljamo da su `numpy`, `ket0` i `ket1` već definisani kao u prethodnoj lekciji.
-:::
+
 
 ```python
 import numpy as np
@@ -385,31 +412,15 @@ Prirodno pitanje je: **koliko kapija nam zaista treba** da bismo mogli da izvede
 
 Za jedan kjubit, opšta kapija $U(\theta,\phi,\lambda)$ pokriva **sve** rotacije, ali na pravom hardveru ne možemo da podesimo uglove savršeno precizno. Zato tražimo **konačan** (diskretan) skup kapija čijim kombinovanjem možemo da se **proizvoljno blizu** približimo svakoj željenoj kapiji. Ključne su dve grupe:
 
-- **Klifordove kapije** $\{H, S\}$ (i $\mathrm{CNOT}$ za više kjubita) — generišu takozvanu Klifordovu grupu. One su moćne, ali ih klasičan računar može efikasno simulirati (Gotesman–Nilova teorema), pa **same po sebi** ne daju kvantnu prednost.
+- **Klifordove kapije** $\{H, S\}$ (i $\mathrm{CNOT}$ za više kjubita) — generišu takozvanu [Klifordovu grupu](https://en.wikipedia.org/wiki/Clifford_group). One su moćne, ali ih klasičan računar može efikasno simulirati (Gotesman–Nilova teorema [@gottesman1998]; vidi i [@nielsen2010], odeljak 10.5.4), pa **same po sebi** ne daju kvantnu prednost.
 - **$T$ kapija** — dodavanje jedne jedine ne-Klifordove kapije $T$ skupu $\{H, S\}$ daje skup $\{H, S, T\}$ (odnosno $\{H, T\}$ za jedan kjubit) koji je **univerzalan**: njime se svaka jednokjubitna kapija može aproksimirati do proizvoljne tačnosti.
 
-Da ta aproksimacija bude i **efikasna**, garantuje **Solovej–Kitajeva teorema**: svaku željenu jednokjubitnu kapiju možemo aproksimirati sa greškom $\varepsilon$ koristeći samo $\mathcal{O}\!\big(\log^{c}(1/\varepsilon)\big)$ kapija iz skupa $\{H, T\}$ (uz malu konstantu $c$). Drugim rečima, cena veće preciznosti raste tek **poli-logaritamski**, što je izuzetno povoljno.
-
-:::{note} Zašto je baš $T$ „skupa"?
-:class: dropdown
-Na mnogim arhitekturama sa korekcijom grešaka, Klifordove kapije ($H$, $S$, $\mathrm{CNOT}$) izvode se relativno jeftino, dok $T$ kapija zahteva posebnu i skupu proceduru (destilaciju magičnih stanja — upravo onih $\ket{T}$ stanja koja smo videli u [](../dan1/02-qubits.md)). Zato se pri projektovanju kvantnih algoritama posebno vodi računa o **broju $T$ kapija** (tzv. $T$-count), kao glavnoj meri cene računanja.
-:::
-
-:::{important} Šta pamtimo iz ove lekcije
-:class: simple
-Sve jednokjubitne kapije su unitarne matrice $2\times 2$ i odgovaraju rotacijama Blohove sfere. Paulijeve kapije ($X, Y, Z$) su rotacije za $\pi$ oko osa, Hadamard ($H$) pravi superpoziciju, fazne kapije ($S, T$) rotiraju oko $z$-ose, a rotacione kapije ($R_x, R_y, R_z$) daju proizvoljan ugao. Sve su specijalni slučaj opšte kapije $U(\theta,\phi,\lambda)$, a konačan skup $\{H, S, T\}$ je univerzalan.
-:::
+Da ta aproksimacija bude i **efikasna**, garantuje **[Solovej–Kitajeva teorema](https://en.wikipedia.org/wiki/Solovay%E2%80%93Kitaev_theorem)**: svaku željenu jednokjubitnu kapiju možemo aproksimirati sa greškom $\varepsilon$ koristeći samo $\mathcal{O}\!\big(\log^{c}(1/\varepsilon)\big)$ kapija iz skupa $\{H, T\}$ (uz malu konstantu $c$). Drugim rečima, cena veće preciznosti raste tek **poli-logaritamski**, što je izuzetno povoljno.
 
 ## Vežbe
 
-Reši sledeće zadatke koristeći **samo** gradivo iz ove lekcije: definicije kapija, njihova algebarska svojstva {eq}`eq:involution`–{eq}`eq:paulialgebra`, rotacione kapije {eq}`eq:rotations` i opštu kapiju {eq}`eq:ugate`. Za merenja koristi Bornovo pravilo iz [](../dan1/02-qubits.md).
 
-:::{tip} Kako da radiš zadatke
-:class: simple
-Prvo pokušaj sam na papiru, pa klikni na **Rešenje** da otvoriš analitičko rešenje (LaTeX) i proveru u Python-u (kod). U kodu pretpostavljamo da su `numpy`, matrice kapija (`X`, `Y`, `Z`, `H`, `S`, `T`), funkcije (`Rx`, `Ry`, `Rz`, `U`, `bloch_vector`) i vektori `ket0`, `ket1` već definisani kao u lekciji.
-:::
 
-### Zagrevanje: dejstvo i svojstva kapija
 
 :::{admonition} Vežba 1
 :class: tip
@@ -473,42 +484,9 @@ print("YX = -iZ? ", np.allclose(Y @ X, -1j*Z))
 ```
 :::
 
-### Rotacije i opšta kapija
+
 
 :::{admonition} Vežba 5
-:class: tip
-Koristeći formulu {eq}`eq:euler-op`, pokaži da je $R_x(\pi) = -iX$. Zaključi zašto $R_x(\pi)$ i $X$ imaju isto dejstvo na verovatnoće merenja.
-:::
-
-:::{admonition} Rešenje
-:class: dropdown
-Iz {eq}`eq:euler-op` je $R_x(\pi) = \cos\tfrac{\pi}{2}\,I - i\sin\tfrac{\pi}{2}\,X = 0\cdot I - i\cdot 1\cdot X = -iX$. Faktor $-i$ je **globalna faza** (modula 1), a globalna faza ne utiče na verovatnoće $p(k) = |\braket{k}{\psi}|^2$ (Vežba 8 iz [](../dan1/02-qubits.md)), pa $R_x(\pi)$ i $X$ opisuju isto merljivo dejstvo.
-
-```python
-print("Rx(pi) = -iX? ", np.allclose(Rx(np.pi), -1j*X))
-```
-:::
-
-:::{admonition} Vežba 6
-:class: tip
-Primeni $R_z(\varphi)$ na stanje $\ket{+}$ i pokaži da dobijaš (do na globalnu fazu) stanje na ekvatoru sa azimutom $\varphi$, tj. $\tfrac{1}{\sqrt2}(\ket{0} + e^{i\varphi}\ket{1})$.
-:::
-
-:::{admonition} Rešenje
-:class: dropdown
-$R_z(\varphi)\ket{+} = \left(\begin{smallmatrix}e^{-i\varphi/2}&0\\0&e^{i\varphi/2}\end{smallmatrix}\right)\tfrac{1}{\sqrt2}\left(\begin{smallmatrix}1\\1\end{smallmatrix}\right) = \tfrac{1}{\sqrt2}\left(\begin{smallmatrix}e^{-i\varphi/2}\\e^{i\varphi/2}\end{smallmatrix}\right) = \tfrac{e^{-i\varphi/2}}{\sqrt2}\left(\begin{smallmatrix}1\\e^{i\varphi}\end{smallmatrix}\right)$. Odbacivanjem globalne faze $e^{-i\varphi/2}$ ostaje $\tfrac{1}{\sqrt2}(\ket{0}+e^{i\varphi}\ket{1})$ — tačka na ekvatoru sa relativnom fazom $\varphi$. $R_z$ dakle „vrti" Blohov vektor oko $z$-ose za ugao $\varphi$.
-
-```python
-phi  = np.radians(70)
-plus = (ket0 + ket1)/np.sqrt(2)
-out  = Rz(phi) @ plus
-cilj = (ket0 + np.exp(1j*phi)*ket1)/np.sqrt(2)
-# poredimo Blohove vektore (ne zavise od globalne faze)
-print(np.allclose(bloch_vector(out), bloch_vector(cilj)))   # True
-```
-:::
-
-:::{admonition} Vežba 7
 :class: tip
 Proveri da je $H = U(\tfrac{\pi}{2}, 0, \pi)$ zamenom uglova u opštu kapiju {eq}`eq:ugate`.
 :::
@@ -524,22 +502,7 @@ print("H = U(pi/2, 0, pi)? ", np.allclose(H, U(np.pi/2, 0, np.pi)))
 ```
 :::
 
-:::{admonition} Vežba 8
-:class: tip
-**Konjugacija Hadamardom.** Pokaži da važi $HXH = Z$ i $HZH = X$. (Ovo znači da Hadamard „zamenjuje" $X$ i $Z$ ose Blohove sfere.)
-:::
-
-:::{admonition} Rešenje
-:class: dropdown
-Direktnim množenjem: $HXH = \tfrac{1}{2}\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right) = \left(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\right) = Z$. Analogno se dobija $HZH = X$. Pošto je $H = H^\dagger$, ovo je „rotacija baze" koja slika $X \leftrightarrow Z$ — geometrijski, refleksija koja menja $x$- i $z$-osu.
-
-```python
-print("HXH = Z? ", np.allclose(H @ X @ H, Z))
-print("HZH = X? ", np.allclose(H @ Z @ H, X))
-```
-:::
-
-:::{admonition} Vežba 9
+:::{admonition} Vežba 6
 :class: tip
 **Univerzalnost u praksi.** Zadata je ciljna kapija $R_z(\tfrac{\pi}{4})$. Pokaži da se ona poklapa sa $T$ (do na globalnu fazu), koristeći $R_z(\theta) = e^{-i\theta/2}U(0,0,\theta)$ i $T = U(0,0,\tfrac{\pi}{4})$.
 :::

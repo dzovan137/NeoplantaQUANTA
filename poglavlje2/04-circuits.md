@@ -26,6 +26,17 @@ Tri koraka svakog kvantnog procesa na primeru jednog kjubita: **priprema** ($\ke
 
 Cilj ove lekcije je da naučimo da čitamo i pišemo ovakve dijagrame, i da ih povežemo sa matricama iz prethodne lekcije.
 
+Ovakav tip diskretne kvantne mehanika deli sličnost sa muzičkim notama prikazanim u sledećem grafiku.
+
+```{figure} ../images/note.png
+:label: fig:note
+:alt: Koraci u muzici,
+:width: 520px
+:align: center
+
+Tri koraka svakog svake muzičke kompozicije.
+```
+
 ## Šta je kvantno kolo?
 
 Kvantno kolo je dijagram sa nekoliko jednostavnih pravila:

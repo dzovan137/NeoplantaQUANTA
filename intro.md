@@ -14,10 +14,16 @@ Izvor slike: [QTLab — ICSC QC1 Quantum Computing Center](https://www.qtlab.uni
 Na slici: Carlo Cosenza, Univerzitet u Napulju Federico II.
 ```
 
-Dobrodošli na interaktivni kurs **Kvantne informatike**. Kurs je osmišljen da približi osnovne ideje savremenog polja
-kvantne informatike. Uvešćemo ključne pojmove kao što su: kjubit, superpozicija, merenje i spletenost. Poseban naglasak
-stavljamo na praktične vežbe u programskom okruženju Python, kroz Jupyter notebook, koji zahvaljujući svojoj fleksibilnosti
-ima veoma važnu ulogu u savremenoj fizici i informatici.
+Dobrodošli na interaktivni kurs **Uvod u kvantnu informatiku**. Kurs je osmišljen da približi osnovne ideje savremenog polja
+kvantne informatike. Uvešćemo ključne pojmove kao što su: 
+- kubit,
+- superpozicija,
+- kvantno merenje,
+- spletenost,
+- mnoge ostale ključne pojmove...
+
+U ovom kursu poseban naglasak stavljamo na praktične vežbe u programskom okruženju Python, kroz Jupyter notebook, koji zahvaljujući svojoj fleksibilnosti
+ima veoma važnu ulogu u savremenoj fizici i informatici. Kurs je hostovan na adresi: https://github.com/dzovan137/NeoplantaQUANTA gde je moguće pristupi online sadržini pomoću bilo kojeg uređaja koji ima pristup internetu. 
 
 
 :::{note} Kako koristiti ovu stranicu? <span style="font-size: 1.45em;">📘💻</span>

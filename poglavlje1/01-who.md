@@ -1,6 +1,6 @@
 ---
 title: "Kvantno računarstvo u praksi"
-short_title: Ko sve?
+short_title: Ko ih gradi?
 description: Pregled hardverskih realizatora kvantnih računara (kompanije i univerzitetske laboratorije), grupisanih po fizičkoj platformi kubita.
 ---
 

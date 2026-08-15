@@ -205,7 +205,7 @@ Pošto globalna faza ne utiče na verovatnoće merenja (Vežba 8 iz [](../dan1/0
 
 ## Opšta parametrizovana kapija $U(\theta, \phi, \lambda)$
 
-Sve prethodne kapije su specijalni slučajevi **jedne** opšte jednokjubitne kapije. U [Qiskit](https://www.ibm.com/quantum/qiskit) okruženju najopštija jednokjubitna kapija se definiše (do na nebitnu globalnu fazu) sa tri realna ugla $\theta, \phi, \lambda$ kao
+Sve prethodne kapije su specijalni slučajevi **jedne** opšte jednokubitne kapije. U [Qiskit](https://www.ibm.com/quantum/qiskit) okruženju najopštija jednokjubitna kapija se definiše (do na nebitnu globalnu fazu) sa tri realna ugla $\theta, \phi, \lambda$ kao
 
 ```{math}
 :label: eq:ugate

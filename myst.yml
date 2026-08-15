@@ -31,6 +31,7 @@ project:
     '\dyad': '\left|#1\right\rangle\!\left\langle#2\right|'
     '\Hilb': '\mathcal{H}'
     '\CC': '\mathbb{C}'
+    '\Tr': '\operatorname{Tr}'
 
   # Table of contents (order of pages in the left sidebar).
   toc:
@@ -45,11 +46,15 @@ project:
         - file: poglavlje2/03-one-qubit-gates.md
         - file: poglavlje2/04-circuits.md
         - file: poglavlje2/05-measurements.md
+        - file: poglavlje2/06-real_quantum_computer.md
     - title: Poglavlje 3
       children:
-        - file: poglavlje3/06-multiqubit.md
-        - file: poglavlje3/07-entanglement.md
-        - file: poglavlje3/08-teleportation.md
+        - file: poglavlje3/07-multiqubit.md
+        - file: poglavlje3/08-entanglement.md
+        - file: poglavlje3/09-teleportation.md
+    - title: Poglavlje 4
+      children:
+        - file: poglavlje4/bell-inquality.md
 
     - title: Reference
       children:

@@ -58,6 +58,8 @@ Prednosti korišćenja Google Colab-a:
 
 **Nužno je potrebno imati gmail email nalog!** 
 
+
+Takođe koristo je prebaciti ⚙️ Settings/Editor/Editor Colorization --> **GitHub** gde se podudara sa bojama i stilom koda u lekcijama.
 :::
 
 

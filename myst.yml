@@ -47,11 +47,12 @@ project:
         - file: poglavlje2/04-circuits.md
         - file: poglavlje2/05-measurements.md
         - file: poglavlje2/06-real_quantum_computer.md
+        - file: poglavlje2/07-using_quantum_computer.md
     - title: Poglavlje 3
       children:
-        - file: poglavlje3/07-multiqubit.md
-        - file: poglavlje3/08-entanglement.md
-        - file: poglavlje3/09-teleportation.md
+        - file: poglavlje3/08-multiqubit.md
+        - file: poglavlje3/09-entanglement.md
+        - file: poglavlje3/10-teleportation.md
     - title: Poglavlje 4
       children:
         - file: poglavlje4/bell-inquality.md

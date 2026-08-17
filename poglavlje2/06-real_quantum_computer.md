@@ -1,23 +1,40 @@
 ---
-title: "Realni kvantni računar"
-short_title: Realni kvantni računar
+title: "Uticaj šuma"
+short_title: Uticaj šuma
 description: Kako šum utiče na jedan kubit i kako ga vidimo na Blohovoj sferi?
 ---
 
-# Realni kvantni računar (noisy hardware)
+# Realni kvantni sistemi 
 
-Do sada smo računali kao da je sve **savršeno**: kapije deluju tačno, stanje se ne kvari, a merenje daje čiste Bornove verovatnoće. Pravi kvantni računari su, međutim, **bučni** (eng. *noisy*). Kubit stalno „curi" informaciju u okolinu, kapije nisu idealne, a što je kolo dublje, to je greška veća. Ova era računara zove se **NISQ** (eng. *Noisy Intermediate-Scale Quantum*).
+Do sada smo računali kao da je sve **savršeno**: kapije deluju tačno, stanje se ne kvari, a merenja u limitu velikog broja uzorkovanja daje precizne verovatnoće. 
 
-U ovoj lekciji uzimamo **najjednostavniji** model šuma za jedan kubit — **depolarizacioni kanal** — i korak po korak vidimo šta on radi stanju. Cilj je da steknemo osećaj: *kako šum menja stanje, verovatnoće merenja, i kako to izgleda na Blohovoj sferi.*
+Pravi kvantni računari su, međutim, pod uticajem **šuma** (eng. *noisy*). Kubit stalno „curi" informaciju u okolinu, kapije nisu idealne, a što je kolo dublje, to je greška veća. Ova era računara zove se **NISQ** (eng. *Noisy Intermediate-Scale Quantum*) {cite}`Preskill_2018`.
 
-:::{important} Ključna ideja
-:class: simple
-Idealna kapija **rotira** Blohov vektor (dužina ostaje $1$). Šum ga **skuplja ka centru** (dužina se smanjuje). Dovoljno šuma i vektor padne u centar — stanje postane potpuno nasumično, „zaboravljeno".
+
+::::{grid} 2 2 2 2
+
+:::{figure} ../images/slika1.png
+
+Manja greška.
 :::
+
+:::{figure} ../images/slika2.png
+Veća greška. 
+:::
+
+::::
+
+Primeri nepreciznosti na Blohovoj sferi.  Sličice preuzete iz {cite}`SalesRodriguez2025`.
+
+U ovoj lekciji uzimamo **najjednostavniji** model šuma za jedan kubit: **depolarizacioni kanal**. Pokazaćemo u detalje i korak po korak vidimo šta on radi stanju. Cilj je da steknemo osećaj:
+- kako šum menja stanje,
+- verovatnoće merenja,
+- kako to izgleda na Blohovoj sferi.
+
 
 ## Čista i mešana stanja: matrica gustine
 
-Da bismo uopšte opisali „pokvareno" stanje, čist vektor $\ket{\psi}$ nam više nije dovoljan. Uvodimo **matricu gustine** $\rho$.
+Da bismo uopšte opisali stanje pod uticajem šuma, čist vektor $\ket{\psi}$ nam više nije dovoljan za matematički opišemo stanje kubita. Uvodimo novi matematički objekat i to **matricu gustine** $\rho$.
 
 Za čisto stanje $\ket{\psi}$ ona je prosto projektor na to stanje:
 
@@ -28,15 +45,26 @@ Za čisto stanje $\ket{\psi}$ ona je prosto projektor na to stanje:
 
 Na primer, za $\ket{0}$ je $\rho = \dyad{0}{0} = \left(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right)$.
 
-Svako stanje jednog kubita (i čisto i „pokvareno") može se zapisati preko **Blohovog vektora** $\mathbf{r} = (r_x, r_y, r_z)$:
+Svako stanje jednog kubita (i čisto i pod uticajem šuma) može se zapisati preko **Blohovog vektora** $\mathbf{r} = (r_x, r_y, r_z)$:
 
 ```{math}
 :label: eq:rho-bloch
-\rho = \tfrac{1}{2}\big(I + r_x X + r_y Y + r_z Z\big), \qquad
+\rho = \tfrac{1}{2}\big(I + r_x X + r_y Y + r_z Z\big) = \tfrac12(I + \mathbf{r}\cdot\boldsymbol\sigma), 
+```
+
+Ovde je $\boldsymbol\sigma = (X,Y,Z)$ vektor Paulijevih matrica, pa važi
+
+```{math}
+\mathbf{r}\cdot\boldsymbol\sigma = r_xX+r_yY+r_zZ.
+```
+
+gde
+```{math}
+:label: eq:rho-bloch1
 \mathbf{r} = \big(\langle X\rangle, \langle Y\rangle, \langle Z\rangle\big) = \big(\Tr(\rho X),\, \Tr(\rho Y),\, \Tr(\rho Z)\big).
 ```
 
-Geometrija je jednostavna i lepa:
+Geometrija je jednostavna:
 
 - $|\mathbf{r}| = 1$ (**na površini** sfere) $\Rightarrow$ **čisto** stanje, baš kao u prethodnim lekcijama.
 - $|\mathbf{r}| < 1$ (**unutar** sfere) $\Rightarrow$ **mešano** stanje — mešavina više mogućnosti.
@@ -46,10 +74,24 @@ Koliko je stanje „čisto" meri **čistoća** (eng. *purity*):
 
 ```{math}
 :label: eq:purity
-\Tr(\rho^2) = \tfrac{1}{2}\big(1 + |\mathbf{r}|^2\big),
+{\rm Pur} \equiv \Tr(\rho^2) = \tfrac{1}{2}\big(1 + |\mathbf{r}|^2\big),
 ```
 
 koja ide od $1$ (čisto, na površini) do $\tfrac{1}{2}$ (maksimalno mešano, u centru).
+
+
+:::{note} Prikaži računicu (klik)
+:class: dropdown
+
+```{figure} ../images/purity.png
+:label: fig:purity
+:alt: purity
+:width: 520px
+:align: center
+
+```
+:::
+
 
 ```python
 import numpy as np
@@ -76,9 +118,8 @@ def blohov_vektor(rho):
 def cistoca(rho):
     return np.trace(rho @ rho).real
 
-# provera: |0> je čisto, na severnom polu (0,0,1)
+# provera: |0> je čisto
 rho0 = rho_iz_stanja(ket0)
-print("r(|0>)  =", np.round(blohov_vektor(rho0), 3))   # [0 0 1]
 print("čistoća =", round(cistoca(rho0), 3))            # 1.0
 ```
 
@@ -91,7 +132,11 @@ Najjednostavniji model šuma kaže: **sa verovatnoćom $p$ nešto krene po zlu i
 \mathcal{E}(\rho) = (1-p)\,\rho + p\,\frac{I}{2}, \qquad p \in [0, 1].
 ```
 
-Parametar $p$ je **jačina šuma**: $p=0$ je savršen kubit, $p=1$ je potpuno izbrisan kubit.
+Parametar $p$ je **jačina šuma**: 
+- $p=0$ je savršen kubit,
+- $p=1$ je potpuno 'mešan' kubit.
+
+Primetite kako je ulazna variable ove funkcije matrica gustine a izlazna zapravo matrica gustine. Ovakav tip matematičke operacije se u literaturi još i naziva **superoperator** i predstavlja dejstvo matrice na matricu.
 
 ### Računica korak po korak (ulaz $\ket{0}$)
 
@@ -107,10 +152,18 @@ Dijagonala matrice gustine su upravo **verovatnoće merenja** u računskoj bazi:
 
 ```{math}
 :label: eq:depol-probs
-p(0) = 1 - \frac{p}{2}, \qquad p(1) = \frac{p}{2}.
+p(0) = 1 - \dfrac{p}{2}, \qquad p(1) = \frac{p}{2}.
 ```
 
+Na primer:
+
+- za $p=0.1$ dobijamo $p(0)=0.95$ i $p(1)=0.05$;
+- za $p=0.3$ dobijamo $p(0)=0.85$ i $p(1)=0.15$;
+- za $p=1$ dobijamo $p(0)=p(1)=0.5$.
+
 Iako smo pripremili čisto $\ket{0}$ (koje bi *uvek* dalo $0$), sada sa verovatnoćom $p/2$ dobijamo pogrešan ishod $1$! To je „greška merenja" koju uvodi šum.
+
+
 
 A Blohov vektor? Bio je $\mathbf{r} = (0,0,1)$, a sada je
 
@@ -118,11 +171,10 @@ A Blohov vektor? Bio je $\mathbf{r} = (0,0,1)$, a sada je
 r_z = \Tr(\rho Z) = \Big(1 - \tfrac{p}{2}\Big) - \tfrac{p}{2} = 1 - p,
 ```
 
-tj. $\mathbf{r} = (0, 0, 1-p)$. **Skratio se za faktor $(1-p)$.**
+tj. $\mathbf{r} = (0, 0, 1-p)$. **Skratio se za faktor $(1-p)$!**
 
-### Opšte pravilo: vektor se skuplja
-
-Ovo nije slučajno baš za $\ket{0}$. Ako umetnemo $\rho = \tfrac12(I + \mathbf{r}\cdot\boldsymbol\sigma)$ iz {eq}`eq:rho-bloch` u kanal {eq}`eq:depol`, dobijamo
+### Opšte pravilo: vektor se smanjuje!
+Ovo nije slučajno baš za $\ket{0}$. Ako iskoristimo izraz {eq}`eq:rho-bloch` u kanal {eq}`eq:depol`, dobijamo
 
 ```{math}
 :label: eq:depol-bloch
@@ -131,7 +183,7 @@ Ovo nije slučajno baš za $\ket{0}$. Ako umetnemo $\rho = \tfrac12(I + \mathbf{
 \boxed{\;\mathbf{r} \;\longmapsto\; (1-p)\,\mathbf{r}\;}
 ```
 
-Dakle depolarizacija **skuplja ceo Blohov vektor ka centru za faktor $(1-p)$**, ne menjajući mu pravac. Stanje ostaje na istom „meridijanu", samo klizi ka centru — postaje sve više mešano.
+Dakle depolarizacija **smanjuje ceo Blohov vektor ka centru za faktor $(1-p)$**, ne menjajući mu pravac. Stanje ostaje na istom „meridijanu", samo klizi ka centru, tj.. postaje sve više mešano.
 
 ```python
 def depolarizacija(rho, p):
@@ -149,7 +201,8 @@ print("dužina |r|      :", round(np.linalg.norm(blohov_vektor(rho_out)), 3))  #
 print("čistoća Tr(ρ²)  :", round(cistoca(rho_out), 3))           # 0.745
 ```
 
-Za $p = 0.3$: verovatnoća greške je $p(1) = 0.15$, vektor se skratio na $0.7$, a čistoća pala sa $1$ na $0.745$. Sve tri brojke govore istu priču — **stanje više nije savršeno**.
+Za $p = 0.3$: verovatnoća greške je $p(1) = 0.15$, vektor se skratio na $0.7$, a čistoća pala sa $1$ na $0.745$. Sve tri brojke govore istu priču: **stanje više nije savršeno** i nije ono koje smo očekivali. Naime ovakav tip greške je jedan od glavnih uzroka greške usled nesavršenosti kvantnog hardvera. 
+
 
 ## Vizuelizacija na Blohovoj sferi
 
@@ -158,8 +211,6 @@ Pošto svako jednokubitno stanje živi na (ili u) Blohovoj sferi, šum je najlak
 ```python
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-
-%matplotlib inline
 
 def nacrtaj_sferu(ax):
     # providna sferična mreža
@@ -188,8 +239,8 @@ def stanje(theta, phi):
     return np.array([[np.cos(theta/2)],
                      [np.exp(1j*phi)*np.sin(theta/2)]], dtype=complex)
 
-p = 0.3
-rho_in  = rho_iz_stanja(stanje(np.radians(55), np.radians(50)))
+p = 0.5
+rho_in  = rho_iz_stanja(stanje(np.radians(25), np.radians(150)))
 rho_out = depolarizacija(rho_in, p)
 r_pre   = blohov_vektor(rho_in)
 r_posle = blohov_vektor(rho_out)
@@ -203,7 +254,7 @@ ax.text(*(1.15*r_pre), r"pre (čisto)", color="#8e44ad", fontsize=13)
 ax.quiver(0,0,0, *r_posle, color="#e67e22", lw=3, arrow_length_ratio=0.17)
 ax.text(*(1.15*r_posle), r"posle", color="#e67e22", fontsize=13)
 ax.scatter([0],[0],[0], color="black", s=15)
-ax.set_title(r"Depolarizacija skuplja Blohov vektor: $\mathbf{r}\to(1-p)\,\mathbf{r}$")
+ax.set_title(r"Depolarizacija smanjuje Blohov vektor: $\mathbf{r}\to(1-p)\,\mathbf{r}$")
 ax.view_init(elev=22, azim=40)
 plt.tight_layout()
 plt.savefig("sum_depolarizacija.png", dpi=300, bbox_inches="tight")
@@ -221,24 +272,57 @@ Depolarizacija ne menja **pravac** Blohovog vektora — samo mu skraćuje **duž
 
 ## Šum koji se ponavlja: put ka centru
 
-Na pravom hardveru šum ne deluje jednom, već **posle svake kapije** i tokom svakog čekanja. Ako isti kanal primenimo $n$ puta, faktori se množe:
+Na pravom hardveru šum ne deluje jednom, već **posle svake kapije**. 
+
+```{figure} ../images/vise_depol.png
+:label: fig:vise_depol
+:alt: depolarizacija 
+:width: 460px
+:align: center
+
+Depolarizacija kad se primeni na svaku kvantnu kapiju. 
+```
+
+Ako isti kanal primenimo $n$ puta, faktori se množe:
 
 ```{math}
 :label: eq:depol-n
 \mathbf{r} \;\longmapsto\; (1-p)^n\,\mathbf{r}.
 ```
 
-Pošto je $0 \le 1-p \le 1$, dužina **eksponencijalno opada** ka nuli: što je kolo dublje, to je stanje bliže centru sfere, tj. sve nasumičnije. Tako izgleda **dekoherencija** — postepeni gubitak kvantne informacije.
+Pošto je $0 \le 1-p \le 1$, dužina **eksponencijalno opada** ka nuli: što je kvantno kolo duže (ima više elemenata), to je stanje bliže centru sfere, tj. sve nasumičnije. 
 
 ```python
 p = 0.3
 rho = rho_iz_stanja(ket0)
 print("n   r_z=(1-p)^n   čistoća   p(1)")
-for n in range(6):
+for n in range(15):
     r  = blohov_vektor(rho)
-    print(f"{n}      {r[2]:.3f}       {cistoca(rho):.3f}    {rho[1,1].real:.3f}")
-    rho = depolarizacija(rho, p)   # još jedan „udarac" šuma
+    print(f"{n}      {r[2]:.3f}       {cistoca(rho):.3f}   {rho[0,0].real:.3f} {rho[1,1].real:.3f}")
+    rho = depolarizacija(rho, p)   
 ```
+
+Za $p=0.3$ dobijamo sledeće vrednosti:
+
+| $n$ | $r_z=(1-p)^n$ | čistoća | $p(0)$ | $p(1)$ |
+|---:|---:|---:|---:|---:|
+| 0 | 1.000 | 1.000 | 1.000 | 0.000 |
+| 1 | 0.700 | 0.745 | 0.850 | 0.150 |
+| 2 | 0.490 | 0.620 | 0.745 | 0.255 |
+| 3 | 0.343 | 0.559 | 0.671 | 0.329 |
+| 4 | 0.240 | 0.529 | 0.620 | 0.380 |
+| 5 | 0.168 | 0.514 | 0.584 | 0.416 |
+| 6 | 0.118 | 0.507 | 0.559 | 0.441 |
+| 7 | 0.082 | 0.503 | 0.541 | 0.459 |
+| 8 | 0.058 | 0.502 | 0.529 | 0.471 |
+| 9 | 0.040 | 0.501 | 0.520 | 0.480 |
+| 10 | 0.028 | 0.500 | 0.514 | 0.486 |
+| 11 | 0.020 | 0.500 | 0.510 | 0.490 |
+| 12 | 0.014 | 0.500 | 0.507 | 0.493 |
+| 13 | 0.010 | 0.500 | 0.505 | 0.495 |
+| 14 | 0.007 | 0.500 | 0.503 | 0.497 |
+
+
 
 ```{figure} ../images/sum_opadanje.png
 :label: fig:sum_opadanje
@@ -246,7 +330,7 @@ for n in range(6):
 :width: 460px
 :align: center
 
-Ponavljanjem šuma ($p=0.3$) Blohov vektor stanja $\ket{0}$ se sve više skuplja: $r_z = (1-p)^n = 1,\,0.7,\,0.49,\dots \to 0$. U granici stanje padne u centar — potpuno nasumičan, „mrtav" kubit.
+Ponavljanjem šuma ($p=0.3$) Blohov vektor stanja $\ket{0}$ se sve više skuplja: $r_z = (1-p)^n = 1,\,0.7,\,0.49,\dots \to 0$. U granici stanje padne u centar. tj. potpuno nasumičan kubit. Kao takav ne nosi nikakvu vrednost i njegov izlaz je ekvivalentan bacanju novčića i dobijanja glava pismo podjednako puta. 
 ```
 
 Verovatnoća pogrešnog ishoda pritom raste ka $0.5$ (čist bacač novčića):
@@ -286,51 +370,32 @@ plt.show()
 Tri načina da se vidi isti šum. Kako $p$ raste: dužina vektora i čistoća opadaju ka mešanom stanju, a greška merenja raste ka $50\%$. Na $p=1$ kubit je potpuno nasumičan.
 ```
 
-## Ekvivalent na pravom hardveru (Qiskit)
 
-U Qiskit-u šum ubacujemo preko **modela šuma** (`NoiseModel`). Ovde svakoj `id` operaciji (jedno „čekanje" kubita) dodeljujemo depolarizacionu grešku, pripremimo $\ket{0}$, pustimo ga da čeka $n$ koraka, i izmerimo. Rezultat prati našu formulu $p(1) = \tfrac{1-(1-p)^n}{2}$.
 
-```python
-# instalacija dodatka za simulaciju šuma
-!pip install qiskit qiskit-aer
-```
-
-```python
-import numpy as np
-from qiskit import QuantumCircuit
-from qiskit_aer import AerSimulator
-from qiskit_aer.noise import NoiseModel, depolarizing_error
-
-p = 0.3
-noise = NoiseModel()
-noise.add_all_qubit_quantum_error(depolarizing_error(p, 1), ['id'])  # šum na "čekanje"
-sim = AerSimulator(noise_model=noise)
-
-for n in [1, 3, 5]:
-    qc = QuantumCircuit(1, 1)
-    for _ in range(n):
-        qc.id(0)          # svaki korak čekanja -> jedan "udarac" šuma
-    qc.measure(0, 0)
-    counts = sim.run(qc, shots=50000).result().get_counts()
-    p1 = counts.get('1', 0) / 50000
-    print(f"n={n}:  p(1) izmereno = {p1:.3f}   teorija = {(1-(1-p)**n)/2:.3f}")
-# n=1: ~0.150   n=3: ~0.329   n=5: ~0.417  -> raste ka 0.5
-```
-
-:::{danger} U slučaju greške pri izvršenju (klik)
-:class: dropdown
-U slučaju greške pri puštanju koda, potrebno je restart-ovati 'Runtime session' vašeg Jupiter notebook-a (i proveriti da je paket `qiskit-aer` instaliran).
-:::
-
-:::{note} Šum je više od depolarizacije (klik)
-:class: dropdown
-Depolarizacioni kanal je najjednostavniji, „simetričan" model — skuplja vektor podjednako u svim pravcima. Pravi hardver ima i **usmerene** kanale: *amplitude damping* ($T_1$, opuštanje ka $\ket{0}$) i *phase damping* ($T_2$, gubitak faze, spljošti sferu ka $z$-osi). Svi oni imaju istu geometrijsku poruku: **stanje klizi sa površine ka unutrašnjosti** Blohove sfere.
-:::
-
-:::{important} Zaključak
+:::{important} O dekoherenciji
 :class: simple
-Idealna kapija je **rotacija** (dužina vektora $=1$). Šum je **skupljanje** ($\mathbf{r}\to(1-p)\mathbf{r}$). Zato je borba za kvantni računar borba da vektor **ostane blizu površine** što duže — bilo boljim hardverom, bilo **kvantnom korekcijom grešaka**.
+Tako izgleda **dekoherencija**, tj. postepeni gubitak kvantne informacije. U tom smislu vidimo da ukoliko je bilo koje stanje na Blohovoj sferi pod uticajem velikog šuma spoljšnje okoline tipa:
+- varijacije u temperaturi
+- gubitak energije kroz radijaciju (vraćanje u $\ket{0}$)
+- nepreciznoj u kontrolnoj elektronici
+- nepreciznost u očitavanju u merenju
+- i mnogi drugi
+
+Ispod možete videti primer merenja stanja kubita i uticaj šuma. 
+
+```{figure} ../images/measurement_example.png
+:label: fig:measurement-example
+:alt: IQ dijagram očitavanja kubita qD3
+:width: 520px
+:align: center
+
+Primer stvarnog očitavanja kubita pomoću merenje napona u superprovodnom kolu. University of Naples, Federico II, 2025. 
+```
+
+Svaka tačka je jedno očitavanje; plavi i narandžasti skup odgovaraju pripremljenim stanjima $\ket{0}$ i $\ket{1}$. Njihovo preklapanje pokazuje šum i verovatnoću greške pri klasifikaciji, dok prag razdvaja rezultate koji se dodeljuju dvema stanjima.
 :::
+
+
 
 ## Vežbe
 
@@ -384,32 +449,5 @@ while duzina >= 0.1:
     duzina *= (1 - p)
     n += 1
 print("Potrebno koraka n =", n, " -> dužina =", round(duzina, 3))   # n = 9
-```
-:::
-
-:::{admonition} Vežba 4 (teža)
-:class: tip
-**Vernost** (eng. *fidelity*) meri koliko izlazno stanje liči na ulazno čisto $\ket{\psi}$: $F = \bra{\psi}\mathcal{E}(\rho)\ket{\psi}$. (a) Pokaži da za depolarizaciju **ne zavisi** od izbora $\ket{\psi}$ i iznosi $F = 1 - \tfrac{p}{2}$. (b) Kolika sme biti jačina šuma $p$ da vernost jedne operacije bude bar $99\%$ (tipičan cilj za dobar hardver)? Proveri kodom na nekoliko nasumičnih stanja.
-:::
-
-:::{admonition} Rešenje
-:class: dropdown
-(a) Kako je $\mathcal{E}(\rho) = (1-p)\dyad{\psi}{\psi} + p\tfrac{I}{2}$, dobijamo
-$F = (1-p)\,|\braket{\psi}{\psi}|^2 + p\,\bra{\psi}\tfrac{I}{2}\ket{\psi} = (1-p)\cdot 1 + p\cdot\tfrac12 = 1 - \tfrac{p}{2}$,
-gde smo iskoristili $\braket{\psi}{\psi} = 1$. Rezultat **ne zavisi** od $\ket{\psi}$ — depolarizacija je „ravnomerna" po celoj sferi.
-
-(b) $F \ge 0.99 \Rightarrow 1 - \tfrac{p}{2} \ge 0.99 \Rightarrow p \le 0.02$. Dakle šum mora biti ispod $2\%$ po operaciji.
-
-```python
-def vernost(psi, p):
-    psi = psi.reshape(2, 1)
-    rho_out = depolarizacija(rho_iz_stanja(psi), p)
-    return (psi.conj().T @ rho_out @ psi).item().real
-
-p = 0.02
-for _ in range(4):
-    a = np.random.randn(2) + 1j*np.random.randn(2)
-    psi = a / np.linalg.norm(a)          # nasumično čisto stanje
-    print("F =", round(vernost(psi, p), 4), " (teorija 1 - p/2 =", 1 - p/2, ")")
 ```
 :::

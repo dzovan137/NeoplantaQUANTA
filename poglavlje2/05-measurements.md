@@ -7,9 +7,8 @@ description: Šta je to merenje kvantnog stanja?
 # Kvantno merenje (quantum measurement)
 
 U prethodnoj lekciji svako kolo se završavalo **merenjem**, tj. trećim i poslednjim korakom svakog kvantnog procesa. Sada se fokusiramo baš na taj korak: 
-- šta merenje daje, 
-- kako iz njega izvlačimo informaciju o stanju, 
-- kako se kolo pokreće na **pravom** kvantnom računaru! 🚀
+- šta merenje daje?
+- kako iz njega izvlačimo informaciju o stanju?
 
 
 

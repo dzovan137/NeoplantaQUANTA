@@ -85,6 +85,78 @@ Nobel prize related win by John Martiness and co. Ovde. fale illustracije.
 Šema: kvantni aniler — energetski pejzaž sa lokalnim i globalnim minimumom. Sopstvena ilustracija.
 ```
 
+## Poređenje između različitih arhitektura
+Malo poređenja radi: https://www.youtube.com/watch?v=0-VnqtZguhc
+Koji je vezan za 
+
+```{figure} ../images/monroe.png
+:alt: Progress u operacijima između dva kubita. 
+:width: 660px
+:align: center
+
+Šema: kvantni aniler — energetski pejzaž sa lokalnim i globalnim minimumom. Sopstvena ilustracija.
+```
+
+Pritom ne treba uzimati preciznost kvantnih operacija kao standard kvaliteta kvantnih računara:
+- zavisi od broja ukupnog broja kubita
+- koji tip operacija su dozvoljene
+- koji nivo kontrole u proseku može da se izvrši
+- konkretne problema i primene
+- analogni/digitalni
+- univerzalni vs. neuniverzalni
+
+
+## dalje zanimljivosti
+```{figure} ../images/companije.jpeg
+:alt: Kompanije
+:width: 660px
+:align: center
+
+https://www.linkedin.com/feed/update/urn:li:activity:7376962782799396864/
+```
+
+
+## dalje zanimljivosti
+```{figure} ../images/neutralni_atomi.jpeg
+:alt: Progress u operacijima između dva kubita. 
+:width: 660px
+:align: center
+
+https://www.linkedin.com/feed/update/urn:li:activity:7460241188516757504/
+
+```
+
+
+## dalje zanimljivosti
+```{figure} ../images/different_algoritms.jpeg
+:alt: Progress u operacijima između dva kubita. 
+:width: 660px
+:align: center
+
+Negde preuzeto... Trebalo bi pronaći.
+
+```
+
+
+## dalje zanimljivosti
+```{figure} ../images/trapped_ions.png
+:alt: Zarobljeni joni.  
+:width: 660px
+:align: center
+
+https://www.youtube.com/watch?v=0-VnqtZguhc
+
+```
+
+```{figure} ../images/quantinuum_racetrack.png
+:alt: Racetrack
+:width: 660px
+:align: center
+
+https://arxiv.org/abs/2305.03828
+
+```
+
 
 Vidimo da hardverski sta je to kvantni racunar i kubitni sistemi dosta sirok pojam. U sledecoj lekciji fokusiracemo se na matematicku pozadinu i definiciju kubita, koji vazi za sve hardverske realizacije i predstavlja osnovu svakih od pomenutih hardverskih arhitektura. 
 

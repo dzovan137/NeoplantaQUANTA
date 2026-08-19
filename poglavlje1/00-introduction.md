@@ -75,4 +75,20 @@ Quantum information theory builds on Shannon's foundations [@shannon1948], with 
 modern reference being Nielsen & Chuang [@nielsen2010]. The no-cloning theorem is due to
 Wootters and Zurek [@wootters1982].[^history]
 
+
+
+Veoma vredan resurs: https://quantum.cloud.ibm.com/learning/en
+
+
+
+## Fizički vs. logički kubiti
+
+```{figure} ../images/lukin.png
+:alt: Lukin
+:width: 660px
+:align: center
+
+https://www.youtube.com/watch?v=hRuC89L5T9U
+```
+
 [^history]: Footnotes are great for asides that would interrupt the flow.

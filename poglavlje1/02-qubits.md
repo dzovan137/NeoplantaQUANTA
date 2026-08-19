@@ -4,18 +4,18 @@ short_title: Šta je to kubit?
 description: Stanje jednog kubita. 
 ---
 
-# Qubit (Kjubit)
+# Qubit (Kubit)
 
-**Qubit** je osnovna jedinica građe i funkcije kvantne informatike i predstavlja
+**Kubit** je osnovna jedinica građe i funkcije kvantne informatike i predstavlja
 analogon klasičnim bit-ovima. Klasični bitovi mogu da imaju vrednosti $0$ i $1$, qubit može biti u linearnoj superpoziciji ova dva stanja!
 
 
 
 
 (sec:state)=
-## Kvantno stanje kjubita
+## Kvantno stanje kubita
 
-Kjubit predstavlja vektor u dvodimenzionalnom kompleksnom Hilbertovom prostoru $\Hilb = \CC^2$.
+Kubit predstavlja vektor u dvodimenzionalnom kompleksnom Hilbertovom prostoru $\Hilb = \CC^2$.
 Ovaj Hilbertov prostor je razapet **ortonormiranom računskom bazom** $\ket{0}$ i $\ket{1}$. Ove vektore zapisujemo kao
 ```{math}
 :label: eq:basis-vectors
@@ -24,7 +24,7 @@ Ovaj Hilbertov prostor je razapet **ortonormiranom računskom bazom** $\ket{0}$ 
 \ket{1} = \begin{pmatrix}0\\1\end{pmatrix}.
 ```
 
-Generalno, stanje kjubita (ket vektor) možemo zapisati kao
+Generalno, stanje kubita (ket vektor) možemo zapisati kao
 
 ```{math}
 :label: eq:qubit
@@ -46,7 +46,7 @@ Dobijanje jednačine [](#eq:norm) koristeći Dirakov zapis i osnovne definicije.
 
 ```{figure} ../images/normalizacija.png
 :label: fig:state-derivation-placeholder
-:alt: Privremena slika ručne računice za stanje kjubita.
+:alt: Privremena slika ručne računice za stanje kubita.
 :width: 520px
 :align: center
 
@@ -57,7 +57,7 @@ Dobijanje jednačine [](#eq:norm) koristeći Dirakov zapis i osnovne definicije.
 
 :::{danger} Opasnost (klik)
 :class: dropdown
-Do sada smo posmatrali **dvodimenzioni** sistem — kjubit sa računskom bazom $\{\ket{0}, \ket{1}\}$. Ništa nas, međutim, ne sprečava da radimo sa sistemima koji imaju **više od dva nivoa**. Sistem sa tri nivoa zove se **kutrit** (qutrit), sa bazom $\{\ket{0}, \ket{1}, \ket{2}\}$, a uopšteno sistem sa $d$ nivoa zove se **kudit** (qudit) i živi u Hilbertovom prostoru $\Hilb = \CC^d$. Njegovo opšte stanje pišemo kao
+Do sada smo posmatrali **dvodimenzioni** sistem — kubit sa računskom bazom $\{\ket{0}, \ket{1}\}$. Ništa nas, međutim, ne sprečava da radimo sa sistemima koji imaju **više od dva nivoa**. Sistem sa tri nivoa zove se **kutrit** (qutrit), sa bazom $\{\ket{0}, \ket{1}, \ket{2}\}$, a uopšteno sistem sa $d$ nivoa zove se **kudit** (qudit) i živi u Hilbertovom prostoru $\Hilb = \CC^d$. Njegovo opšte stanje pišemo kao
 
 ```{math}
 :label: eq:qudit
@@ -65,7 +65,7 @@ Do sada smo posmatrali **dvodimenzioni** sistem — kjubit sa računskom bazom $
 ```
 gde su $c_k \in \CC$ kompleksne amplitude, a uslov normalizacije je direktna generalizacija jednačine [](#eq:norm).
 
-Isti sadržaj možemo da spakujemo u **manje fizičkih nosilaca**, što u nekim algoritmima smanjuje broj potrebnih kapija i međukjubitnih veza. Cena je teža kontrola: više nivoa znači i više kanala za greške i složenije kapije. 
+Isti sadržaj možemo da spakujemo u **manje fizičkih nosilaca**, što u nekim algoritmima smanjuje broj potrebnih kapija i međukubitnih veza. Cena je teža kontrola: više nivoa znači i više kanala za greške i složenije kapije. 
 
 Postoji poduža lista hardverskih realizacija, a ovde izdvajamo dve reprezentativne:
 - Innsbruck grupa — kuditi na zarobljenim jonima ([arXiv:2109.06903](https://arxiv.org/abs/2109.06903))
@@ -78,7 +78,7 @@ Koristeći sledeća dva ugla:
 - $\theta$: polarni ugao, $\theta \in [0,\pi]$,
 - $\varphi$: azimutalni ugao (relativna faza), $\varphi \in [0,2\pi)$,
 
-svako jednokjubitno stanje se **do na globalnu fazu** može zapisati u obliku
+svako jednokubitno stanje se **do na globalnu fazu** može zapisati u obliku
 
 ```{math}
 :label: eq:bloch
@@ -133,20 +133,20 @@ $\ket{1}$ ($\theta = \pi$).
 :width: 420px
 :align: center
 
-**Blohova sfera** sa severnim i južnim polom $\ket{0}$ i $\ket{1}$, pritom gde je jednokjubitno stanje $\ket{\psi}$ iz jednačine {eq}`eq:bloch` prikazano sa ljubičastom bojom sa primerom dva ugla $(\theta, \varphi)$. 
+**Blohova sfera** sa severnim i južnim polom $\ket{0}$ i $\ket{1}$, pritom gde je jednokubitno stanje $\ket{\psi}$ iz jednačine {eq}`eq:bloch` prikazano sa ljubičastom bojom sa primerom dva ugla $(\theta, \varphi)$. 
 Ostale relevantne tačke na sferi poput $\ket{\pm}$ i $\ket{\pm i}$ su takođe date. Za ukazane vrednosti uglova potrebno je konvertovati vrednosti uglova koristeći $\frac{\pi}{180}$, i to za dati primer $\cos{(\frac{45^{\circ}}{2})} = \cos{(\frac{45 \frac{\pi}{180}}{2})} = 0.92388$, $\varphi = 45^{\circ} = 45 \frac{\pi}{180} = 0.785398$, i $\sin{(\frac{45^{\circ}}{2})} = 0.382683$.
 ```
 
 :::{danger} Opasnost
-Treba napomenuti da ukoliko se sistem sastoji od više kjubita, reprezentacija pomoću Blohove sfere nije moguća.
-U narednim predavanjima bavićemo se višekjubitnim sistemima.
+Treba napomenuti da ukoliko se sistem sastoji od više kubita, reprezentacija pomoću Blohove sfere nije moguća.
+U narednim predavanjima bavićemo se višekubitnim sistemima.
 :::
 
 
 
 ## Vaš prvi 'kvantni' kod u Python-u! 
 
-Hajde da generišemo jednokjubitna stanja, kao i napravimo vizuelizaciju Blohove sfere. 
+Hajde da generišemo jednokubitna stanja, kao i napravimo vizuelizaciju Blohove sfere. 
 
 
 :::{tip} Kopiraj u svoj Jupyter Notebook! 
@@ -544,7 +544,7 @@ Kao što vidimo, kvantna mehanika je u stvari neka vrsta **generalizovane teorij
 
 ## Vežbe
 
-Reši sledeće zadatke koristeći **samo** gradivo iz ove lekcije: definiciju kjubita i
+Reši sledeće zadatke koristeći **samo** gradivo iz ove lekcije: definiciju kubita i
 normalizaciju {eq}`eq:norm`, Dirakovu bra-ket notaciju, Blohovu sferu {eq}`eq:bloch`,
 tabelu specijalnih stanja i Bornovo pravilo {eq}`eq:bornrule`.
 

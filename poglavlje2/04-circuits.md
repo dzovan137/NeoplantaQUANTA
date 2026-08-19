@@ -39,7 +39,7 @@ Cilj ove lekcije je da naučimo da čitamo i pišemo ovakve dijagrame, i da ih p
 
 Ovakav tip diskretne kvantne mehanika deli sličnost sa muzičkim notama kao što smo već videli. 
 
-
+**Ne treba zaboraviti da najčešće sa merenjem asociramo osu z!** (slučaj superprovodnih kubita)
 
 ## Šta je kvantno kolo?
 

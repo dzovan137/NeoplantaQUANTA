@@ -51,8 +51,9 @@ project:
     - title: Poglavlje 3
       children:
         - file: poglavlje3/08-multiqubit.md
-        - file: poglavlje3/09-entanglement.md
-        - file: poglavlje3/10-teleportation.md
+        - file: poglavlje3/09-multiqubit_measurement.md
+        - file: poglavlje3/10-entanglement.md
+        - file: poglavlje3/11-teleportation.md
     - title: Poglavlje 4
       children:
         - file: poglavlje4/bell-inquality.md

@@ -119,7 +119,6 @@ Za **matricu** ($2^N\times 2^N$ elemenata) je slika još drastičnija — ona �
 | 15 | ~$10^9$           | 8 GiB  | 16 GiB |
 | 20 | ~$10^{12}$        | 8 TiB  | 16 TiB |
 | 25 | ~$10^{15}$        | 8 PiB  | 16 PiB |
-| 30 | ~$10^{18}$        | 8 EiB  | 16 EiB |
 
 Nekoliko orijentira da brojevi dobiju smisao:
 - tipičan laptop sa $16\,\text{GiB}$ RAM-a u dvostrukoj preciznosti staje do otprilike $N \approx 30$ kubita za **sam vektor stanja** (a u praksi manje, jer i sistem i međurezultati troše memoriju),
@@ -138,6 +137,35 @@ Upravo tu leži razlika prema pravom kvantnom računaru, tj. on stanje od $2^N$ 
 :::
  
 
+:::{important} Dodatno! 
+:class: simple
+
+Recimo neki problemi u magnetizmu koji imaju direktnu vezu sa spin-1/2 (kubit) reprezentacijom predstavljaju tako dobru priliku za kvantne računare jer klasične simulacije su veoma zahtevne ali kvantni računar bi mogao da predstavi takav sistem veoma lako. 
+
+```{figure} ../images/magnezam.jpg
+:label: fig:magnezam
+:alt: purity
+:width: 520px
+:align: center
+
+
+Slika preuzeta sa https://www.purdue.edu/research/features/stories/2d-array-of-electron-and-nuclear-spin-qubits-opens-new-frontier-in-quantum-science/?TSPD_101_R0=08993c5290ab20006144edad91465007c8bde491b62cf338381f911a2175cc77093d24fef517630308f3f08c7b143000d0ae1758a2da31c177246f6b80da8bd55fcbc1cd03933be9a7f93e32df8fe28f483ac49738442adc6a65cdb5815afe12
+```
+
+Pritom treba naravno imati u vidu da izlaz ili krajnje merenje koje nas zanima, bila to neka observable mora da bude predstavljena na na celom mogućem registru računslke baze, nego na par veoma zastupljenih bit-stringova. Primer možemo videti ispod:
+
+```{figure} ../images/stringovi.png
+:label: fig:stringovi
+:alt: purity
+:width: 520px
+:align: center
+```
+
+
+:::
+ 
+
+
 Opšte stanje je superpozicija svih $2^N$ baznih stanja,
 
 ```{math}
@@ -151,12 +179,67 @@ Eksplicitno:
 - $N = 2$
 ```{math}
 :label: eq:n2
-\ket{\Psi} = b_1 \ket{00} + b_2 \ket{01} + b_3 \ket{10} + b_4 \ket{11}. 
+\ket{\Psi} = a_0 \ket{00} + a_1 \ket{01} + a_2 \ket{10} + a_3 \ket{11}. 
 ```
 
 - $N = 3$
 
 ```{math}
-:label: eq:ex-stanje
-\ket{\Psi} = b_1\ket{000} + b_2\ket{001} + b_3\ket{010} + b_4\ket{011} + b_5\ket{100} + b_6\ket{101} + b_7\ket{110} + b_8\ket{111},
+:label: eq:n3
+\ket{\Psi} = a_0\ket{000} + a_1\ket{001} + a_2\ket{010} + a_3\ket{011} + a_4\ket{100} + a_5\ket{101} + a_6\ket{110} + a_7\ket{111},
 ```
+
+
+gde je indeks uz svaku amplitudu prosto bitska niska pročitana kao binarni broj (npr. $a_5$ stoji uz $\ket{101}$ jer je $101_2 = 5$, računato od nule).
+
+U Pythonu bitsku zapis u ceo broj (indeks) prevodimo jednom linijom pomoću ugrađene funkcije `int(string, 2)`:
+
+```python
+print(int("101", 2))    # 5
+print(int("000", 2))    # 0
+print(int("111", 2))    # 7
+```
+
+
+### Dodatni indeksi
+U literatura nekada indeksi koji su povezani sa kubitima su zapisani. Na primer za prethodno stanje koje smo definisali možemo napisati
+
+```{math}
+:label: eq:ex-stanje
+\ket{\Psi} = a_0\ket{0_1 0_2 0_3} + a_1\ket{0_1 0_2 1_3 } + a_2\ket{0_1 1_2 0_3} + a_3\ket{0_1 1_2 1_3} + a_4\ket{1_1 0_2 0_3 } + a_5\ket{1_1 0_2 1_3} + a_6\ket{1_1 1_2 0_3} + a_7\ket{1_1 1_2 1_3},
+```
+
+Ovakav zapis nekad možda izgleda previše, ali u nekim situacijama je bitno pratiti redosled i indekse u računici. 
+
+## Indeksiranje: bitski string kao redni broj
+
+Kada stanje čuvamo kao vektor u $\mathbb{C}^{2^N}$, moramo znati **koja komponenta odgovara kojoj bitskom stringu**. Konvencija je jednostavna: string $b_1 b_2 \cdots b_N$ pročitamo kao binarni broj, i to je redni broj (indeks) odgovarajuće komponente,
+
+```{math}
+:label: eq:index-map
+\ket{b_1 b_2 \cdots b_N} \;\longleftrightarrow\; \text{indeks } i = \sum_{k=1}^{N} b_k\, 2^{\,N-k}.
+```
+
+Tako $\ket{000}$ ide na indeks $0$, a $\ket{111}$ na indeks $7$. Baš zato je $\ket{b_1\cdots b_N}$ uvek jedan **jedinični vektor standardne baze** — ima jednu jedinicu na mestu $i$, a nule svuda drugde.
+
+:::{admonition} Vežba 1:  bitski string ↔ indeks
+:class: tip
+Pokaži (na papiru) da $\ket{101}$ odgovara $6.$ vektoru standardne baze u $\mathbb{C}^8$, tj. indeksu $5$. Zatim ga konstruiši tenzorskim proizvodom i uporedi sa $\mathbf{e}_5$.
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+$101_2 = 1\cdot4 + 0\cdot2 + 1\cdot1 = 5$, pa je $\ket{101} = \mathbf{e}_5$ (šesti vektor, brojano od nule).
+
+```python
+import numpy as np
+ket0 = np.array([1, 0], dtype=complex)
+ket1 = np.array([0, 1], dtype=complex)
+
+psi = np.kron(np.kron(ket1, ket0), ket1)      # |1> ⊗ |0> ⊗ |1>
+print("indeks 101 =", int("101", 2))          # 5
+print("|101> == e_5 ? ", np.allclose(psi, np.eye(8)[5]))
+```
+:::
+
+

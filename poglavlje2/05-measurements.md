@@ -4,6 +4,11 @@ short_title: Kvantno merenje
 description: Šta je to merenje kvantnog stanja?
 ---
 
+:::{margin}
+![Napredak kursa: korak 6 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-05.svg)
+:::
+
+
 # Kvantno merenje (quantum measurement)
 
 U prethodnoj lekciji svako kolo se završavalo **merenjem**, tj. trećim i poslednjim korakom svakog kvantnog procesa. Sada se fokusiramo baš na taj korak: 

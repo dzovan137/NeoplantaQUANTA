@@ -4,6 +4,11 @@ short_title: Korišćenje pravog kvatnog računara
 description: Kako koristimo pravi kvantni računar?
 ---
 
+:::{margin}
+![Napredak kursa: korak 8 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-07.svg)
+:::
+
+
 # Kako da pustimo prvi kvantni račun
 
 Hajde da vidimo kako možemo da koristimo pravi kvantni računar koristeći programsko okruženje QisKit. 
@@ -294,7 +299,7 @@ Vektor treba da leži (do na statističku grešku) na **površini** Blohove sfer
 
 ## Izvršenje na pravom kvantnom računaru
 
-Do sada je `sampler` bio lokalni simulator. Lepota Qiskit-ovih **primitiva** je što se isto kolo pokreće na **pravom** kvantnom računaru promenom svega nekoliko linija — kolo, `measure` i „shots" ostaju isti. Na IBM-ovom hardveru (uz besplatan nalog na [IBM Quantum](https://quantum.ibm.com)) obrazac je:
+Videli smo do sada kako pokrećemo prave kodove, sada taj kod mora biti prilagođen da bi simultano merio u X,Y,Z bazama. 
 
 ```python
 # ============================================================

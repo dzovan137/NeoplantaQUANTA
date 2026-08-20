@@ -4,6 +4,11 @@ short_title: Kvantna kola
 description: Kako se kvantne kapije spajaju u kvantno kolo?
 ---
 
+:::{margin}
+![Napredak kursa: korak 5 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-04.svg)
+:::
+
+
 # Kvantna kola (quantum circuits)
 
 U prošloj lekciji upoznali smo *pojedinačne* kvantne kapije kao matrice $2\times 2$. Sada ćemo videti kako se one nižu jedna za drugom u **kvantno kolo**: dijagram koji se čita kao note, s leva na desno, kroz vreme.

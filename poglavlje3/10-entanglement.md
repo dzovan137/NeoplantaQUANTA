@@ -4,6 +4,229 @@ short_title: Spletenost
 description: Osnove višekubitnih sistema    
 ---
 
+
+## Proizvodna nasuprot spregnutim stanjima
+
+Tenzorski proizvod nam omogućava da od stanja pojedinačnih kubita **sagradimo** stanje registra: 
+
+```{math}
+:label: eq:examp
+\ket{\psi_1}\otimes\ket{\psi_2}\otimes\cdots \otimes \ket{\psi_N}
+
+```
+
+Takva stanja zovemo **proizvodna** (eng. "product state") ili **separabilna** (eng. "separable"). 
+
+:::{important} Ključna osobina koja čini višekubitne sisteme interesantnim! 
+:class: simple
+
+Ključno zapažanje koje leži u srce kvantne mehanike i kvantnog računarstva: **ne može svako** stanje registra da se zapisati ili "rastaviti" na ovaj način! Vektor ima $2^N$ elemenata, a proizvodnih stanja ima „premalo" da ga popune; ostatak su **spregnuta** (eng. "entangled") stanja.
+:::
+
+- Hajde da vidimo to na sledećem primeru! 
+
+Za dva kubita, opšte proizvodno stanje je
+```{math}
+:label: eq:prod-2q
+(\alpha\ket0 + \beta\ket1)\otimes(\gamma\ket0 + \delta\ket1)
+= \alpha\gamma\ket{00} + \alpha\delta\ket{01} + \beta\gamma\ket{10} + \beta\delta\ket{11}.
+```
+Odatle su amplitude $a_{00}=\alpha\gamma,\ a_{01}=\alpha\delta,\ a_{10}=\beta\gamma,\ a_{11}=\beta\delta$. Postoji jednostavan i elegantan način da proverimo da li ovo stanje može da se razloži u tenzorski produkt. Složimo četiri amplitude u **matricu** čiji red bira prvi, a kolona drugi kubit:
+
+```{math}
+:label: eq:coef-matrix
+C = \begin{pmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{pmatrix} = \begin{pmatrix}\alpha\gamma & \alpha\delta \\ \beta\gamma & \beta\delta\end{pmatrix}.
+```
+
+Sa sledećim preciznim uslovom:
+
+```{math}
+:label: eq:sep-crit
+\text{separabilno} \;\Longleftrightarrow\;  \det C = a_{00}a_{11} - a_{01}a_{10} = 0.
+```
+
+Ako je determinanta različita od nule, stanje je **spregnuto** i nema rastavljanja na „prvi kubit puta drugi kubit"!
+
+Hajde da kroz primere pokažemo kako funkcioniše ovaj uslov i kako se koristimo Python-om u ovom slučaju.  
+(a) Napiši $\ket0\otimes\ket{+}$ eksplicitno kao vektor u $\mathbb{C}^4$ i potvrdi `np.kron`-om. \
+(b) Prekroji amplitude u matricu $C$ iz {eq}`eq:coef-matrix` i pomoću determinantei i odredi da li je stanje proizvodno. \
+(c) Testiraj uslov separabilnosti na $\ket0\otimes\ket{+}$ (očekivano separabilno) i na Bell stanju $\tfrac{1}{\sqrt2}(\ket{00}+\ket{11})$ (očekivano spregnuto).
+
+
+:::{admonition} Rešenje
+:class: dropdown
+(a) $\ket{+} = \tfrac{1}{\sqrt2}(\ket0+\ket1)$, pa je $\ket0\otimes\ket{+} = \tfrac{1}{\sqrt2}(\ket{00}+\ket{01}) = \tfrac{1}{\sqrt2}(1,1,0,0)^{\mathsf T}$.
+
+(b) Za $\ket0\otimes\ket{+}$ je $C = \tfrac{1}{\sqrt2}\left(\begin{smallmatrix}1&1\\0&0\end{smallmatrix}\right)$, rang $1$, $\det C = 0$ → separabilno. Za Bell stanje je $C = \tfrac{1}{\sqrt2}\left(\begin{smallmatrix}1&0\\0&1\end{smallmatrix}\right)$, rang $2$, $\det C = \tfrac12 \neq 0$ → spregnuto.
+
+```python
+import numpy as np
+ket0 = np.array([1, 0], dtype=complex); ket1 = np.array([0, 1], dtype=complex)
+plus = (ket0 + ket1)/np.sqrt(2)
+
+def je_separabilno(psi, tol=1e-9):
+    C = psi.reshape(2, 2)                              # amplitude -> 2x2 matrica
+    return np.linalg.matrix_rank(C, tol=tol) == 1     # rang 1 <=> proizvodno
+
+prod = np.kron(ket0, plus)
+bell = (np.kron(ket0, ket0) + np.kron(ket1, ket1))/np.sqrt(2)
+print("|0>|+> =", np.round(prod, 3))
+print("|0>|+> separabilno? ", je_separabilno(prod))   # True
+print("Bell separabilno?   ", je_separabilno(bell))   # False
+
+# ista provera preko determinante (samo za 2x2):
+for ime, psi in [("|0>|+>", prod), ("Bell", bell)]:
+    C = psi.reshape(2, 2)
+    print(f"det C ({ime}) =", round(abs(np.linalg.det(C)), 3))
+```
+:::
+
+## Bell-ova stanja 
+Za sistem od dva kubita postoji poseban skup stanja koja su, prema ranije predstavljenoj definiciji, istorijski i praktično veoma važna u kvantnoj mehanici. Ta stanja nazivamo Bell-ovim stanjima ([Bell state](https://en.wikipedia.org/wiki/Bell_state)). 
+
+Ona su definisana kao:
+
+1. $\ket{\Phi^{+}} = \dfrac{1}{\sqrt{2}} \left( \ket{00} + \ket{11} \right)$,
+2. $\ket{\Phi^{-}} = \dfrac{1}{\sqrt{2}} \left( \ket{00} - \ket{11} \right)$,
+3. $\ket{\Psi^{+}} = \dfrac{1}{\sqrt{2}} \left( \ket{01} + \ket{10} \right)$,
+4. $\ket{\Psi^{-}} = \dfrac{1}{\sqrt{2}} \left( \ket{01} - \ket{10} \right)$,
+
+Ova stanja igraju veoma važnu ulogu u kvantnom mehanici i u konteksku Bellovih nejednakosti. Time ćemo se baviti u nekim narednim poglavljima.  
+
+## Kapije na delu registra
+
+Kada kapiju primenjujemo na **jedan** kubit unutar registra, na ostale kubite deluje jedinična matrica $I$. Delovanje na kubit $j$ dobijamo tenzorskim proizvodom u kom je na mestu $j$ tražena kapija, a svuda drugde $I$. Na primer, $H$ samo na srednjem od tri kubita je $I\otimes H\otimes I$ (matrica $8\times 8$). Tako svaki simulator zapravo „diže" jednokubitne kapije na ceo prostor.
+
+:::{admonition} Vežba 3 — Hadamard na srednjem kubitu
+:class: tip
+Sastavi $8\times 8$ matricu $I\otimes H\otimes I$ i primeni je na $\ket{000}$. Uveri se da rezultat pravi superpoziciju **samo** po srednjem bitu, tj. daje $\ket0\otimes\ket{+}\otimes\ket0$.
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+```python
+import numpy as np
+ket0 = np.array([1, 0], dtype=complex); ket1 = np.array([0, 1], dtype=complex)
+plus = (ket0 + ket1)/np.sqrt(2)
+I = np.eye(2); H = np.array([[1, 1], [1, -1]])/np.sqrt(2)
+
+op = np.kron(np.kron(I, H), I)                 # I ⊗ H ⊗ I  (8x8)
+out = op @ np.kron(np.kron(ket0, ket0), ket0)  # deluje na |000>
+exp = np.kron(np.kron(ket0, plus), ket0)       # očekivano |0>|+>|0>
+print("I⊗H⊗I |000> == |0>|+>|0> ? ", np.allclose(out, exp))
+```
+:::
+
+
+
+## Normiranje i broj parametara
+
+Amplitude opšteg stanja nisu proizvoljne — moraju biti **normirane**, $\sum_{\mathbf x}|a_{\mathbf x}|^2 = 1$. Uz to, globalna faza nije fizička (stanja $\ket\Psi$ i $e^{i\varphi}\ket\Psi$ su ista). Prebrojavanje slobodnih parametara pokazuje koliko je „veliko" $N$-kubitno stanje.
+
+:::{admonition} Vežba 4 — normiraj i prebroj parametre
+:class: tip
+Generiši slučajan kompleksan vektor dužine $2^N$, normiraj ga i numerički potvrdi $\sum_{\mathbf x}|a_{\mathbf x}|^2 = 1$. Zatim prebroj: koliko realnih parametara ima **nenormiran** vektor, a koliko fizičko stanje (posle normiranja i uklanjanja globalne faze)?
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+Kompleksan vektor dužine $2^N$ ima $2\cdot 2^N$ realnih brojeva. Normiranost uklanja jedan ($\sum|a|^2=1$), a globalna faza još jedan, pa fizičko stanje ima $2\cdot 2^N - 2 = 2^{N+1}-2$ realnih parametara. Za $N=3$ to je $14$ (naspram $2N=6$ koliko bi imalo $N$ nezavisnih Blohovih sfera — razlika je spregnutost).
+
+```python
+import numpy as np
+rng = np.random.default_rng(0); N = 3
+a = rng.normal(size=2**N) + 1j*rng.normal(size=2**N)
+a /= np.linalg.norm(a)                          # normiranje
+print("sum |a|^2 =", round(np.sum(np.abs(a)**2), 12))   # 1.0
+print("fizickih realnih parametara:", 2**(N+1) - 2)     # 14 za N=3
+```
+:::
+
+
+
+## Prva spregnuta kapija: CNOT i Bell stanje
+
+Proizvodna stanja gradimo tenzorskim proizvodom, ali da bismo **napravili** spregnutost treba nam kapija koja povezuje dva kubita. Najvažnija je **CNOT** (kontrolisano-NE): ako je kontrolni kubit $\ket1$, ona obrne ciljni kubit; ako je $\ket0$, ne radi ništa. U računskoj bazi $\{\ket{00},\ket{01},\ket{10},\ket{11}\}$ (kontrola = prvi kubit) njena matrica je
+
+```{math}
+:label: eq:cnot
+\mathrm{CNOT} =
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0
+\end{pmatrix}.
+```
+
+Primenimo li $H$ na prvi kubit, pa CNOT, iz $\ket{00}$ dobijamo čuveno **Bell stanje** — proizvodni ulaz, a spregnuti izlaz.
+
+:::{admonition} Vežba 5 — napravi Bell stanje
+:class: tip
+Primeni CNOT na $(H\otimes I)\ket{00}$ i pokaži da dobiješ $\tfrac{1}{\sqrt2}(\ket{00}+\ket{11})$. Iskoristi test faktorabilnosti iz Vežbe 2 da potvrdiš da izlaz **nije** proizvodno stanje, iako je ulaz bio.
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+$(H\otimes I)\ket{00} = \tfrac{1}{\sqrt2}(\ket{00}+\ket{10})$; CNOT obrne ciljni kubit tamo gde je kontrola $\ket1$, pa $\ket{10}\to\ket{11}$, čime dobijamo $\tfrac{1}{\sqrt2}(\ket{00}+\ket{11})$.
+
+```python
+import numpy as np
+ket0 = np.array([1, 0], dtype=complex); ket1 = np.array([0, 1], dtype=complex)
+H = np.array([[1, 1], [1, -1]])/np.sqrt(2); I = np.eye(2)
+CNOT = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype=complex)
+
+psi  = np.kron(H @ ket0, ket0)                  # (H⊗I)|00>
+out  = CNOT @ psi
+bell = (np.kron(ket0, ket0) + np.kron(ket1, ket1))/np.sqrt(2)
+print("izlaz == Bell? ", np.allclose(out, bell))
+
+def faktorabilno(psi, tol=1e-9):
+    a = psi.reshape(4); return abs(a[0]*a[3] - a[1]*a[2]) < tol
+print("izlaz faktorabilan? ", faktorabilno(out))   # False -> spregnuto
+```
+
+Spregnuta stanja, koja ne možemo razložiti na „prvi kubit puta drugi kubit", srce su kvantne prednosti — njima se detaljno bavimo u [](../poglavlje3/09-entanglement.md).
+:::
+
+
+
+## Vežbe: memorija i skaliranje
+
+:::{admonition} Vežba 6 — koliko kubita staje u RAM?
+:class: tip
+Koliko **najviše** kubita staje u $32\,\text{GiB}$ RAM-a ako čuvamo samo vektor stanja? Reši za dvostruku ($16$ B) i za jednostruku ($8$ B) preciznost, koristeći {eq}`eq:mem-formula`. Šta primećuješ o „dobitku" od prelaska na nižu preciznost?
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+Iz $2^N\cdot b \le M$ sledi $N \le \log_2(M/b)$. Za $M = 32\,\text{GiB}$: dvostruka preciznost daje $N = 31$, a jednostruka $N = 32$. Prepolovljavanje memorije po amplitudi kupuje **tačno jedan** dodatni kubit — jer je zavisnost od $N$ eksponencijalna, a od preciznosti tek linearna.
+
+```python
+import numpy as np
+M = 32 * 1024**3
+for b in (16, 8):
+    N = int(np.floor(np.log2(M / b)))
+    print(f"b = {b} B  ->  max N = {N}")
+```
+:::
+
+:::{admonition} Vežba 7 — faktor rasta po kubitu
+:class: tip
+Za koliko se **poveća** potrebna memorija kada pređeš sa $N$ na $N+1$ kubita — posebno za vektor, a posebno za matricu? Objasni zašto matrica za $N$ kubita troši istu memoriju kao vektor za $2N$ kubita.
+:::
+
+:::{admonition} Rešenje
+:class: dropdown
+Vektor: $M_{\text{vektor}}(N+1)/M_{\text{vektor}}(N) = 2^{N+1}/2^{N} = 2$ — udvostruči se. Matrica: $4^{N+1}/4^{N} = 4$ — učetvorostruči se. Kako je $4^{N} = 2^{2N}$, matrica za $N$ kubita ima isto elemenata kao vektor za $2N$ kubita, pa i istu memoriju (uz istu preciznost).
+:::
+
+
+
+
+
+
+
 # Ovde ćemo da stavimo osnove
 - Više kubitni sistemi se dobijaju tenzorskim proizvodom
 - Neke osnove. Dvokubitni primeri --> Bellova stanja
@@ -178,119 +401,6 @@ Odgovarajuća stanja posle merenja (normirana po {eq}`eq:born-registar`) su
 U imeniocu je uvek zbir $|a_{\mathbf{x}}|^2$ **tačno onih** amplituda koje preživljavaju u brojiocu (a to je baš $p(b_j)$). Prva dva, odnosno preostala dva kjubita ostaju u superpoziciji.
 :::
 
-## Merenje više kjubita istovremeno
-
-Ako merimo $L$ kjubita $\{j_1, \dots, j_L\}$ odjednom, projektor zadržava bazna stanja koja se slažu sa **svim** izmerenim ishodima:
-
-```{math}
-:label: eq:proj-multi
-\Pi_{\{b_{j_1}, \dots, b_{j_L}\}} = \sum_{\mathbf{x}\,:\, x_{j_1}=b_{j_1},\,\dots,\, x_{j_L}=b_{j_L}} \dyad{\mathbf{x}}{\mathbf{x}},
-```
-
-a verovatnoća i kolaps su opet istog oblika,
-
-```{math}
-:label: eq:born-multi
-p(b_{j_1},\dots,b_{j_L}) = \bra{\Psi}\Pi_{\{b_{j_1},\dots,b_{j_L}\}}\ket{\Psi}, \qquad
-\ket{\Psi'} = \frac{\Pi_{\{b_{j_1},\dots,b_{j_L}\}}\ket{\Psi}}{\sqrt{p(b_{j_1},\dots,b_{j_L})}}.
-```
-
-:::{note} Primer 2 — merenje dva kjubita
-Merimo prvi i drugi kjubit stanja {eq}`eq:ex-stanje`. Četiri moguća ishoda daju projektore
-
-```{math}
-:label: eq:ex2-proj
-\begin{aligned}
-\Pi_{\{0_1, 0_2\}} &= \dyad{000}{000} + \dyad{001}{001}, &
-\Pi_{\{0_1, 1_2\}} &= \dyad{010}{010} + \dyad{011}{011}, \\
-\Pi_{\{1_1, 0_2\}} &= \dyad{100}{100} + \dyad{101}{101}, &
-\Pi_{\{1_1, 1_2\}} &= \dyad{110}{110} + \dyad{111}{111}.
-\end{aligned}
-```
-
-Ako, na primer, izmerimo $\{1_1, 1_2\}$, stanje se kolabira na potprostor $\{\ket{110}, \ket{111}\}$:
-
-```{math}
-:label: eq:ex2-post
-\ket{\Psi'_{\{1_1, 1_2\}}} = \frac{\Pi_{\{1_1,1_2\}}\ket{\Psi}}{\sqrt{p(1_1,1_2)}} = \frac{a_6\ket{110} + a_7\ket{111}}{\sqrt{|a_6|^2 + |a_7|^2}}.
-```
-
-Pošto smo fiksirali prva dva kjubita, samo **treći** kjubit ostaje u superpoziciji.
-:::
-
-## Kod: Bornovo pravilo i kolaps za registar
-
-Napravimo mali alat koji za proizvoljno stanje registra gradi projektor {eq}`eq:proj-multi`, računa verovatnoću i kolaps, pa njime proverimo oba primera. Projektor je (radi nastave) prosto dijagonalna matrica sa jedinicama na baznim stanjima koja prežive:
-
-```python
-import numpy as np
-from itertools import product
-
-N = 3
-baza = [''.join(bits) for bits in product('01', repeat=N)]   # '000','001',...,'111'
-
-def slucajno_stanje(N=3, seed=0):
-    rng = np.random.default_rng(seed)
-    a = rng.normal(size=2**N) + 1j*rng.normal(size=2**N)
-    return a/np.linalg.norm(a)                                # normirano stanje
-
-def projektor(mereni, ishodi, N=3):
-    """Dijagonalni projektor: zadrži bazna stanja gde su 'mereni' kjubiti = 'ishodi'.
-       mereni: 1-indeksirani kjubiti; ishodi: pripadni bitovi."""
-    diag = [1.0 if all(int(s[q-1]) == b for q, b in zip(mereni, ishodi)) else 0.0
-            for s in baza]
-    return np.diag(diag).astype(complex)
-
-def izmeri(psi, mereni, ishodi):
-    P = projektor(mereni, ishodi)
-    p = (psi.conj() @ P @ psi).real                          # p = <psi|P|psi>
-    psi_post = (P @ psi)/np.sqrt(p)                          # kolaps + normiranje
-    return p, psi_post
-```
-
-**Primer 1** — merimo prvi kjubit (ishod $0$), pa drugi kjubit (ishod $1$):
-
-```python
-psi = slucajno_stanje(seed=1)
-a = psi                                    # a[i] je amplituda uz |i>  (i = 0..7)
-
-# --- prvi kjubit = 0  (prežive |000>,|001>,|010>,|011>, tj. indeksi 0,1,2,3) ---
-p, post = izmeri(psi, mereni=[1], ishodi=[0])
-print("p(0_1) =", round(p, 4), " (rucno:", round(np.sum(np.abs(a[[0, 1, 2, 3]])**2), 4), ")")
-
-ocek = np.zeros(8, complex); ocek[[0, 1, 2, 3]] = a[[0, 1, 2, 3]]
-ocek /= np.linalg.norm(ocek)
-print("kolaps = ocekivano stanje? ", np.allclose(post, ocek))
-
-# --- drugi kjubit = 1  (prežive |010>,|011>,|110>,|111>, indeksi 2,3,6,7) ---
-p2, post2 = izmeri(psi, mereni=[2], ishodi=[1])
-print("p(1_2) =", round(p2, 4), " (rucno:", round(np.sum(np.abs(a[[2, 3, 6, 7]])**2), 4), ")")
-```
-
-**Primer 2** — merimo prva dva kjubita, ishod $\{1_1, 1_2\}$ (prežive samo $\ket{110}, \ket{111}$):
-
-```python
-p11, post11 = izmeri(psi, mereni=[1, 2], ishodi=[1, 1])
-print("p(1_1,1_2) =", round(p11, 4), " (rucno:", round(np.sum(np.abs(a[[6, 7]])**2), 4), ")")
-
-ocek11 = np.zeros(8, complex); ocek11[[6, 7]] = a[[6, 7]]
-ocek11 /= np.linalg.norm(ocek11)
-print("kolaps na {|110>, |111>}? ", np.allclose(post11, ocek11))
-
-# relacija potpunosti: zbir verovatnoća svih ishoda na kjubitu 1 je 1
-print("p(0_1) + p(1_1) =", round(izmeri(psi, [1], [0])[0] + izmeri(psi, [1], [1])[0], 6))
-```
-
-:::{note} Qiskit i redosled kjubita (klik)
-:class: dropdown
-Isto se može uraditi i u Qiskit-u sa `Statevector(psi).measure([j])`, ali oprez: Qiskit numeriše kjubite **obrnuto** (little-endian, kjubit $0$ je krajnje desni bit), pa se indeksi i niske razlikuju od konvencije $\ket{b_1 b_2 b_3}$ koju ovde koristimo. Zbog jasnoće smo gore ostali na `numpy`-ju, gde sami držimo redosled pod kontrolom.
-:::
-
-:::{important} Šta pamtimo iz ove lekcije
-:class: simple
-Bornovo pravilo i kolaps za registar imaju **isti oblik** kao za jedan kjubit; samo je projektor $\Pi = \sum_{\mathbf{x}} \dyad{\mathbf{x}}{\mathbf{x}}$ zbir po baznim stanjima koja se slažu sa izmerenim ishodima: $p = \bra{\Psi}\Pi\ket{\Psi}$ i $\ket{\Psi'} = \Pi\ket{\Psi}/\sqrt{p}$. Verovatnoća je zbir $|a_{\mathbf{x}}|^2$ preživelih amplituda, a stanje se posle merenja normira istim tim korenom. Kada izmerimo samo deo registra, **preostali kjubiti ostaju u superpoziciji** — to je polazna tačka za spletenost i teleportaciju.
-:::
-
 
 ## Pogled unapred: dva kjubita i Bell stanje
 
@@ -425,7 +535,7 @@ Operator $Z$ ima svojstvene vrednosti $+1$ (za $\ket{0}$) i $-1$ (za $\ket{1}$),
 prep = QuantumCircuit(1); prep.ry(1.0, 0)
 sv = Statevector(prep); p = sv.probabilities()
 print("p(0)-p(1) =", round(p[0]-p[1], 3),
-      " <Z> =", round(sv.expectation_value(Pauli('Z')).real, 3))
+    " <Z> =", round(sv.expectation_value(Pauli('Z')).real, 3))
 ```
 :::
 

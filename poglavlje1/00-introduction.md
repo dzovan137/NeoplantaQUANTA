@@ -4,6 +4,11 @@ short_title: Zašto kvanti računari?
 description: Motivacija i cilj. 
 ---
 
+:::{margin}
+![Napredak kursa: korak 1 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-00.svg)
+:::
+
+
 
 
 :::{admonition} Motivacija

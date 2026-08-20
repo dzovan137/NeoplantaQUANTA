@@ -4,6 +4,11 @@ short_title: Kvantne kapije
 description: Šta su to kvantne kapije?
 ---
 
+:::{margin}
+![Napredak kursa: korak 4 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-03.svg)
+:::
+
+
 # Kvantne kapije (quantum gates)
 
 Kako to možemo da utičemo na kvantna stanja? Videli smo da kvantna stanja definišemo pomoću vektora, dok da bismo menjali te vektore zapravo koristimo matrice.

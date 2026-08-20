@@ -4,6 +4,11 @@ short_title: Ko ih gradi?
 description: Pregled hardverskih realizatora kvantnih računara (kompanije i univerzitetske laboratorije), grupisanih po fizičkoj platformi kubita.
 ---
 
+:::{margin}
+![Napredak kursa: korak 2 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-01.svg)
+:::
+
+
 ## Pejzaž hardvera za kvantno računarstvo (nepotpuno)[^history]
 
 Svaki panel je jedna **fizička platforma kubita**. Unutar panela subjekti su razvrstani

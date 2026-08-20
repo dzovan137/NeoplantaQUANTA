@@ -4,6 +4,11 @@ short_title: Uticaj šuma
 description: Kako šum utiče na jedan kubit i kako ga vidimo na Blohovoj sferi?
 ---
 
+:::{margin}
+![Napredak kursa: korak 7 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-06.svg)
+:::
+
+
 # Realni kvantni sistemi 
 
 Do sada smo računali kao da je sve **savršeno**: kapije deluju tačno, stanje se ne kvari, a merenja u limitu velikog broja uzorkovanja daje precizne verovatnoće. 

@@ -4,6 +4,11 @@ short_title: Šta je to kubit?
 description: Stanje jednog kubita. 
 ---
 
+:::{margin}
+![Napredak kursa: korak 3 od 8 — put ka pravom kvantnom računaru](../images/progress/progress-02.svg)
+:::
+
+
 # Qubit (Kubit)
 
 **Kubit** je osnovna jedinica građe i funkcije kvantne informatike i predstavlja

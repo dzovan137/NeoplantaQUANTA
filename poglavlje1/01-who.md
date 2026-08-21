@@ -132,16 +132,6 @@ https://www.linkedin.com/feed/update/urn:li:activity:7460241188516757504/
 ```
 
 
-## dalje zanimljivosti
-```{figure} ../images/different_algoritms.jpeg
-:alt: Progress u operacijima između dva kubita. 
-:width: 660px
-:align: center
-
-Negde preuzeto... Trebalo bi pronaći.
-
-```
-
 
 ## dalje zanimljivosti
 ```{figure} ../images/trapped_ions.png

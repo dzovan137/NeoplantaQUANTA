@@ -52,7 +52,7 @@ def dot_center_y(i):
 def make_svg(current):
     n = len(STEPS)
     reached_goal = (current == n - 1)
-    frac = (current + 1) / n
+    frac = max(0, current + 1) / n          # current = -1 -> "not started", 0/8
     fill_w = 218 * frac
 
     if reached_goal:
@@ -153,6 +153,12 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     outdir = os.path.join(here, "images", "progress")
     os.makedirs(outdir, exist_ok=True)
+    # "not started" version (0/8, nothing filled) — e.g. for the intro page
+    start_path = os.path.join(outdir, "progress-start.svg")
+    with open(start_path, "w", encoding="utf-8") as f:
+        f.write(make_svg(-1))
+    print("wrote", start_path)
+
     for i, (num, _) in enumerate(STEPS):
         svg = make_svg(i)
         path = os.path.join(outdir, f"progress-{num}.svg")

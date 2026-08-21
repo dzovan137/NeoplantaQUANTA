@@ -14,23 +14,30 @@ Izvor slike: [QTLab — ICSC QC1 Quantum Computing Center](https://www.qtlab.uni
 Na slici: Carlo Cosenza, Univerzitet u Napulju Federico II.
 ```
 
-Dobrodošli na interaktivni kurs **Uvod u kvantnu informatiku**. Kurs je osmišljen da približi osnovne ideje savremenog polja
-kvantne informatike. Uvešćemo ključne pojmove kao što su: 
+Dobrodošli na interaktivni kurs **Uvod u kvantnu informatiku**. Kurs je osmišljen sa ciljem da približi osnovne ideje savremenog polja
+kvantne informatike. Kroz kurs uvešćemo i definisaćemo neke od ključnih pojmova kao što su: 
 - kubit,
-- superpozicija,
+- kvantna superpozicija,
 - kvantno merenje,
 - spletenost,
-- mnoge ostale ključne pojmove...
+- itd ...
 
-U ovom kursu poseban naglasak stavljamo na praktične vežbe u programskom okruženju Python, kroz Jupyter notebook, koji zahvaljujući svojoj fleksibilnosti
-ima veoma važnu ulogu u savremenoj fizici i informatici. Kurs je hostovan na adresi: https://github.com/dzovan137/NeoplantaQUANTA gde je moguće pristupi online sadržini pomoću bilo kojeg uređaja koji ima pristup internetu. 
+U ovom kursu poseban naglasak stavljamo na <u>praktične vežbe u programskom okruženju Python</u>, kroz Jupyter notebook, koji zahvaljujući svojoj fleksibilnosti
+i jednostavnosti igra veoma važnu ulogu u savremenoj fizici i računarstvu. 
+
+
+ Kurs je hostovan na adresi: https://github.com/dzovan137/NeoplantaQUANTA ,gde je moguće direktno pristupi sadržaju koji će sa svakim poglabvljem se širiti. 
 
 
 :::{note} Kako koristiti ovu stranicu? <span style="font-size: 1.45em;">📘💻</span>
 :class: simple
-Ova stranica je zamišljena kao vodič za učenje <span style="font-size: 1.35em;">📘</span>, dok se kod izvršava u vašem **Jupyter notebook-u** <span style="font-size: 1.35em;">💻</span>.  
+Ova stranica je zamišljena kao vodič za učenje, dok se kod izvršava u vašem **Jupyter notebook-u**.  
 
-Kako da radite:
+Princip rada:
+- predstavljanje osnovnih teorijskih aspekata,
+- praktični rad kroz primere.
+
+U okviru Jupiter notebook obruženja na vama je da:
 - kopirajte svaki primer koda sa stranice u svoj notebook,
 - pokrenite kod i proverite rezultat,
 - dodajte sopstvene beleške i male izmene kako biste bolje razumeli šta se dešava.
@@ -54,7 +61,7 @@ Ako želite da radite u Jupyter okruženju bez lokalne instalacije i dodatnog po
 Prednosti korišćenja Google Colab-a:
 - nije potrebna instalacija Python-a i dodatnih paketa na vašem računaru,
 - notebook možete otvoriti sa bilo kog uređaja koji ima internet,
-- jednostavno deljenje rada sa kolegama i nastavnicima putem linka,
+- jednostavno deljenje rada sa kolegama putem linka.
 
 **Nužno je potrebno imati gmail email nalog!** 
 
@@ -65,9 +72,10 @@ Takođe koristo je prebaciti ⚙️ Settings/Editor/Editor Colorization --> **Gi
 
 ## Potrebno predznanje
 
-- Osnove linearne algebre, 
-- LaTeX ispisivanje formula (ukoliko želite da upotpunite Jupiter notebook beleške),
-- osnove programskog jezika Python. 
+- osnove programskog jezika Python,  
+- osnove linearne algebre (vektori, matrice, ...), 
+- LaTeX ispisivanje formula (ukoliko želite da upotpunite Jupiter notebook beleške).
+
 
 
 
@@ -75,12 +83,27 @@ Takođe koristo je prebaciti ⚙️ Settings/Editor/Editor Colorization --> **Gi
 
 :::{admonition} Tvoj put kroz kurs
 :class: tip outcomes-hero
-Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i rad na pravom kvantnom uređaju.
+
+```{figure} /images/progress-start.png
+:label: fig:mapa
+:alt: mapa
+:width: 420px
+:align: center
+
+Od teorije do eksperimentalne prakse. Sa svakim korakom se približavamo cilju a to je da pustite svoj prvi izračun na kvantnom računaru. 
+
+<u>Sa svakom lekcijom bliže smo direktnom radu sa pravim kvantnim računarem! </u>
+```
+
+
 :::
+
+
+## Cilj ovog kursa jeste da spoznaš i razumeš
 
 ::::{grid} 1 1 2 2
 
-:::{card} 🔹 Osnove stanja kjubita
+:::{card} 🔹 Kvantno stanja kubita
 - matematički zapišeš i protumačiš stanje jednog kjubita,
 - vizuelizuješ stanje kjubita na Blohovoj sferi.
 :::
@@ -92,37 +115,61 @@ Od teorije do prakse: svaki korak povezuje matematičku intuiciju, Python kod i 
 
 :::{card} 🔹 Python i Qiskit praksa
 - pratiš svaki korak računa kroz Python kod i proveriš rezultat,
-- koristiš Qiskit za kreiranje i pokretanje jednostavnih kvantnih kola.
+- koristiš QisKit* za kreiranje i pokretanje jednostavnih kvantnih kola.
+
+*programski paket za programiranje superprovodnih kvantnih računara
 :::
 
-:::{card} 🔹 Rad na stvarnom hardveru
+:::{card} 🔹 Rad na stvarnom kvantnom hardveru
 - pokreneš osnovne primere na stvarnom kvantnom računaru na daljinu.
 :::
+
 
 ::::
 
 
-
-## Praktični detalji
-- 3 x 45 min + 2 x 15 pauze
-- nije opšti kurs iz kvatne informatike, nego osnove koje se mogu nadograditi u budućnosti
+## Osnovni matematički objekti
 
 
 
-## Neke potrebne matematičke osnove
 
-
-Šta mislim pod linearnim? U najjednostavnijem smislu ukoliko imamo funkciju $f(a \vec{x} + b \vec{y}) = a f(\vec{x}) + b f(\vec{y})$ gde x i y mogu biti bilo koji od sledećih matematičkih objekata
+Linearna algebra sa matematičkim objektima poput vektora i matrica i pridruženim operacijama predstavlja nužni matematički okvir za kvantnu mehaniku. Sami objekti nad kojima pravila linearne algebre su zastupljenja  (i koji se pojavljuju u kvantnoj teoriji) prikazani su na slici [](#fig:DifferentMathObjects), poređani po složenosti.
 
 
 ```{figure} /images/DifferentMathObjects.png
 :label: fig:DifferentMathObjects
-:alt: razlici matematicki objekti
+:alt: Skalar, vektor, matrica i tenzor kao tenzori ranga 0, 1, 2 i 3
 :width: 620px
 :align: center
 
-Različiti tipovi matematičkih funkcija i njihova dijagramatička reprezentacija. 
+Skalar, vektor, matrica i tenzor, iliti tenzori **ranga** (reda) $0$, $1$, $2$ i $3$ koji zajedno sa svojom dijagramatičkom reprezentacijom. Broj „nogu“ (spoljašnjih linija) koje izlaze iz svakog objekta jednak je broju indeksa potrebnih da se imenuje jedan njegov element; taj broj upravo i jeste rang. Za ovaj kurs dovoljna su prva tri objekta (skalar, vektor i matrica), dok tenzori višeg ranga pripadaju naprednijem nivou.
 ```
 
-Tenzori igraju veoma važnu ulogu u kvantnoj informatici ali i u ostalim poljima fizike, ali u ovom kursu nećemo ulaziti u detalje ove reprezentacije i zašto je bitna. 
-Dok će prve tri konstrukcije biti korišćene. Kvantnu mehaniku nazivaju i matričnom mehanikom koju je Heisenberg prvi formulisao [citat iz Panticeve knjige]
+Pogledajmo ih redom, onako kako su označeni na slici:
+
+- **Skalar** ($A$): običan broj, tenzor **ranga 0**. Nema nijedan indeks (nijednu „nogu“), jer je potpuno određen jednom jedinom vrednošću. Kod nas će skalari najčešće biti kompleksne amplitude i verovatnoće merenja.
+- **Vektor** ($B$): uređena kolona brojeva $B_i$, tenzor **ranga 1**. Potreban je **jedan** indeks $i$ da bismo izdvojili pojedinačni element. Stanje jednog kubita upravo ćemo zapisivati kao vektor.
+- **Matrica** ($C$): pravougaona tablica brojeva $C_{ij}$, tenzor **ranga 2**. Potrebna su **dva** indeksa: $i$ (red) i $j$ (kolona). Kvantne kapije, tj. operacije nad kubitima, jesu matrice.
+- **Tenzor** ($D$): uopštenje sa **tri** ili više indeksa, $D_{ijk}$, tenzor **ranga 3** (i višeg). Tenzori se prirodno pojavljuju kada više kubita spajamo u jedan sistem.
+
+Tenzori igraju veoma važnu ulogu u kvantnoj informatici, kao i u drugim oblastima fizike, ali u ovom kursu nećemo ulaziti u detalje njihove reprezentacije i zašto je bitna. Koristićemo prve tri konstrukcije — skalare, vektore i matrice. Uostalom, nije slučajno što se kvantna mehanika naziva i **matričnom mehanikom**: njenu prvu potpunu formulaciju dao je Heisenberg 1925. godine (a nedugo zatim razvijena je i u saradnji sa Bornom i Jordanom).
+
+% TODO: dodati referencu za matričnu mehaniku — Pantić, <naslov knjige>
+
+
+## Praktični detalji
+- 3 x 45 min + 2 x 15 pauze
+- online and offline
+- možete postavljati pitanja u svakom trenutku
+- ukoliko vam kod u Python-u ne funkcioniše, slobodno prijavite
+- ovaj vebsajt će biti nadopunjen sa svakom novom lekcijom
+
+
+
+:::{note} Mala napomena
+:class: simple
+Ovaj kurs je napravljen kao uvod koji bi trebao da predstavlja osnove a ne kao kompletan pregled celog polja. 
+:::
+
+
+

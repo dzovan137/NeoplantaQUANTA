@@ -49,6 +49,18 @@ and https://arxiv.org/pdf/2603.15608
 ```
 ::::
 
+
+```{figure} ../images/different_algoritms.jpeg
+:alt: Progress u operacijima između dva kubita. 
+:width: 660px
+:align: center
+
+Negde preuzeto... Trebalo bi pronaći.
+
+```
+
+
+## REST
 HERE WE NEED TO PUT THE RELEVANT REFERENCES:
 - SCOTT AARONSON LECTURE NOTES
 - Nielsen and Chuang

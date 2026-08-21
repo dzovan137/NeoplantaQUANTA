@@ -33,6 +33,27 @@ project:
     '\CC': '\mathbb{C}'
     '\Tr': '\operatorname{Tr}'
 
+  # --- Serbian numbering labels ---------------------------------------------
+  # Controls CROSS-REFERENCES: writing "...na slici [](#fig:bloch)" renders the
+  # link as "Slika 1" (and "Tabela 1" for tables) instead of "Figure 1".
+  # NOTE: the caption PREFIXES that appear above/below the image ("Slika 1:")
+  # are set by the plugin below — MyST hardcodes the caption word, so this
+  # numbering template alone does not reach it.
+  numbering:
+    figure:
+      template: Slika %s
+    subfigure:
+      template: Slika %s
+    table:
+      template: Tabela %s
+
+  # Local transform plugin that rewrites the figure/table caption prefixes to
+  # Serbian ("Figure 1:" -> "Slika 1:", "Table 1:" -> "Tabela 1:") on every
+  # page — existing and any new lecture you add later.
+  plugins:
+    - type: javascript
+      path: serbian-labels.mjs
+
   # Table of contents (order of pages in the left sidebar).
   toc:
     - file: intro.md

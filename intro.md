@@ -29,7 +29,7 @@ i jednostavnosti igra veoma važnu ulogu u savremenoj fizici i računarstvu.
  Kurs je hostovan na adresi: https://github.com/dzovan137/NeoplantaQUANTA ,gde je moguće direktno pristupi sadržaju koji će sa svakim poglabvljem se širiti. 
 
 
-:::{note} Kako koristiti ovu stranicu? <span style="font-size: 1.45em;">📘💻</span>
+:::{note} Kako koristiti ovu stranicu? 
 :class: simple
 Ova stranica je zamišljena kao vodič za učenje, dok se kod izvršava u vašem **Jupyter notebook-u**.  
 
@@ -130,9 +130,6 @@ Od teorije do eksperimentalne prakse. Sa svakim korakom se približavamo cilju a
 
 ## Osnovni matematički objekti
 
-
-
-
 Linearna algebra sa matematičkim objektima poput vektora i matrica i pridruženim operacijama predstavlja nužni matematički okvir za kvantnu mehaniku. Sami objekti nad kojima pravila linearne algebre su zastupljenja  (i koji se pojavljuju u kvantnoj teoriji) prikazani su na slici [](#fig:DifferentMathObjects), poređani po složenosti.
 
 
@@ -150,7 +147,7 @@ Pogledajmo ih redom, onako kako su označeni na slici:
 - **Skalar** ($A$): običan broj, tenzor **ranga 0**. Nema nijedan indeks (nijednu „nogu“), jer je potpuno određen jednom jedinom vrednošću. Kod nas će skalari najčešće biti kompleksne amplitude i verovatnoće merenja.
 - **Vektor** ($B$): uređena kolona brojeva $B_i$, tenzor **ranga 1**. Potreban je **jedan** indeks $i$ da bismo izdvojili pojedinačni element. Stanje jednog kubita upravo ćemo zapisivati kao vektor.
 - **Matrica** ($C$): pravougaona tablica brojeva $C_{ij}$, tenzor **ranga 2**. Potrebna su **dva** indeksa: $i$ (red) i $j$ (kolona). Kvantne kapije, tj. operacije nad kubitima, jesu matrice.
-- **Tenzor** ($D$): uopštenje sa **tri** ili više indeksa, $D_{ijk}$, tenzor **ranga 3** (i višeg). Tenzori se prirodno pojavljuju kada više kubita spajamo u jedan sistem.
+- **Tenzor** ($D$): uopštenje sa **tri** ili više indeksa, $D_{ijk}$, tenzor **ranga 3** (i višeg). 
 
 Tenzori igraju veoma važnu ulogu u kvantnoj informatici, kao i u drugim oblastima fizike, ali u ovom kursu nećemo ulaziti u detalje njihove reprezentacije i zašto je bitna. Koristićemo prve tri konstrukcije — skalare, vektore i matrice. Uostalom, nije slučajno što se kvantna mehanika naziva i **matričnom mehanikom**: njenu prvu potpunu formulaciju dao je Heisenberg 1925. godine (a nedugo zatim razvijena je i u saradnji sa Bornom i Jordanom).
 
